@@ -20,6 +20,12 @@ namespace TravelSite.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Traveller> Travellers { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Activity> Activities { get; set; }
+        public DbSet<Interest> Interests { get; set; }
+        public DbSet<Itinerary> Itineraries { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
