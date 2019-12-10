@@ -12,7 +12,7 @@ namespace TravelSite.Models
         public Itinerary()
         {
             Activities = new HashSet<Activity>();
-            Travellers = new HashSet<Traveller>();
+            Travelers = new HashSet<Traveler>();
         }
         [Key]
         public Guid Id { get; set; }
@@ -20,6 +20,6 @@ namespace TravelSite.Models
         public string State { get; set; }
         public TimeSpan TimeSpan { get; set; }
         public ICollection<Activity> Activities { get; set; }
-        public ICollection<Traveller> Travellers { get; set; }
+        public ICollection<Traveler> Travelers { get; set; }
     }
 }

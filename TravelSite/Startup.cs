@@ -21,8 +21,8 @@ namespace TravelSite
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
 
-            if (!roleManager.RoleExists("Traveller"))
-                roleManager.Create(new IdentityRole { Name = "Traveller" });
+            if (!roleManager.RoleExists("Traveler"))
+                roleManager.Create(new IdentityRole { Name = "Traveler" });
         }
     }
 }

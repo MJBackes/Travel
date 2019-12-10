@@ -170,13 +170,13 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\TravellerController.cs" />
+    <Compile Include="Controllers\Traveler.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201912101743302_SecondMigration.cs" />
-    <Compile Include="Migrations\201912101743302_SecondMigration.Designer.cs">
-      <DependentUpon>201912101743302_SecondMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201912101854480_SecondMigration.cs" />
+    <Compile Include="Migrations\201912101854480_SecondMigration.Designer.cs">
+      <DependentUpon>201912101854480_SecondMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -187,7 +187,7 @@
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Review.cs" />
-    <Compile Include="Models\Traveller.cs" />
+    <Compile Include="Models\Traveler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -268,8 +268,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201912101743302_SecondMigration.resx">
-      <DependentUpon>201912101743302_SecondMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201912101854480_SecondMigration.resx">
+      <DependentUpon>201912101854480_SecondMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

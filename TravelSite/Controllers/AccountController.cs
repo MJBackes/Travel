@@ -153,7 +153,7 @@ namespace TravelSite.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.UserRole = "Traveller";
+                model.UserRole = "Traveler";
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

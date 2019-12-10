@@ -11,7 +11,7 @@ namespace TravelSite.Models
     {
         public Interest()
         {
-            Travellers = new HashSet<Traveller>();
+            Travelers = new HashSet<Traveler>();
             Activities = new HashSet<Activity>();
         }
         [Key]
@@ -20,7 +20,7 @@ namespace TravelSite.Models
         public string Value { get; set; }
         [NotMapped]
         public bool isChecked { get; set; }
-        public ICollection<Traveller> Travellers { get; set; }
+        public ICollection<Traveler> Travelers { get; set; }
         public ICollection<Activity> Activities { get; set; }
     }
 }

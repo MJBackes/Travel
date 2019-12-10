@@ -8,38 +8,38 @@ using TravelSite.Models;
 
 namespace TravelSite.Controllers
 {
-    public class TravellerController : Controller
+    public class TravelerController : Controller
     {
         public ApplicationDbContext db;
-        public TravellerController()
+        public TravelerController()
         {
             db = new ApplicationDbContext();
         }
-        // GET: Traveller
+        // GET: Traveler
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: Traveller/Details/5
+        // GET: Traveler/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Traveller/Create
+        // GET: Traveler/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Traveller/Create
+        // POST: Traveler/Create
         [HttpPost]
-        public ActionResult Create(Traveller traveller)
+        public ActionResult Create(Traveler Traveler)
         {
-            traveller.Id = Guid.NewGuid();
-                traveller.ApplicationUserId = User.Identity.GetUserId();
-                db.Travellers.Add(traveller);
+            Traveler.Id = Guid.NewGuid();
+                Traveler.ApplicationUserId = User.Identity.GetUserId();
+                db.Travelers.Add(Traveler);
                 db.SaveChanges();
                 return RedirectToAction("GetInterests");
 
@@ -53,11 +53,11 @@ namespace TravelSite.Controllers
         public ActionResult GetInterests(List<Interest> interests)
         {
             var userId = User.Identity.GetUserId();
-            Traveller traveller = db.Travellers.FirstOrDefault(t => t.ApplicationUserId == userId);
+            Traveler Traveler = db.Travelers.FirstOrDefault(t => t.ApplicationUserId == userId);
             foreach(Interest interest in interests)
             {
                 if(interest.isChecked)
-                traveller.Interests.Add(db.Interests.FirstOrDefault(i => i.Id == interest.Id));
+                Traveler.Interests.Add(db.Interests.FirstOrDefault(i => i.Id == interest.Id));
             }
             db.SaveChanges();
             return View("Index");
@@ -67,13 +67,13 @@ namespace TravelSite.Controllers
         public ActionResult EditInterests()
         {
             var userId = User.Identity.GetUserId();
-            return View(db.Travellers.First(t => t.ApplicationUserId == userId).Interests.ToList());
+            return View(db.Travelers.First(t => t.ApplicationUserId == userId).Interests.ToList());
         }
         [HttpPost]
         public ActionResult EditInteresets(List<Interest> interests)
         {
             var userId = User.Identity.GetUserId();
-            List<Interest> origianlInterests = db.Travellers.First(t => t.ApplicationUserId == userId).Interests.ToList();
+            List<Interest> origianlInterests = db.Travelers.First(t => t.ApplicationUserId == userId).Interests.ToList();
             foreach(Interest i in origianlInterests)
             {
                 if (!interests.Contains(i))
@@ -90,23 +90,23 @@ namespace TravelSite.Controllers
             }
             return View("Index");
         }
-        // GET: Traveller/Edit/5
+        // GET: Traveler/Edit/5
         public ActionResult Edit()
         {
             var userId = User.Identity.GetUserId();
-            return View(db.Travellers.FirstOrDefault(t => t.ApplicationUserId == userId));
+            return View(db.Travelers.FirstOrDefault(t => t.ApplicationUserId == userId));
         }
 
-        // POST: Traveller/Edit/5
+        // POST: Traveler/Edit/5
         [HttpPost]
-        public ActionResult Edit(Traveller traveller)
+        public ActionResult Edit(Traveler Traveler)
         {
             try
             {
                 var userId = User.Identity.GetUserId();
-                Traveller travellerFromDb = db.Travellers.FirstOrDefault(t => t.ApplicationUserId == userId);
-                travellerFromDb.FirstName = traveller.FirstName;
-                travellerFromDb.LastName = traveller.LastName;
+                Traveler TravelerFromDb = db.Travelers.FirstOrDefault(t => t.ApplicationUserId == userId);
+                TravelerFromDb.FirstName = Traveler.FirstName;
+                TravelerFromDb.LastName = Traveler.LastName;
                 return RedirectToAction("Index");
             }
             catch
@@ -115,13 +115,13 @@ namespace TravelSite.Controllers
             }
         }
 
-        // GET: Traveller/Delete/5
+        // GET: Traveler/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Traveller/Delete/5
+        // POST: Traveler/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

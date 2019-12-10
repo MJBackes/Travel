@@ -7,9 +7,9 @@ using System.Web;
 
 namespace TravelSite.Models
 {
-    public class Traveller
+    public class Traveler
     {
-        public Traveller()
+        public Traveler()
         {
             Interests = new HashSet<Interest>();
             Itineraries = new HashSet<Itinerary>();

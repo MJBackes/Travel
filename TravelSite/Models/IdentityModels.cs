@@ -20,7 +20,7 @@ namespace TravelSite.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<Traveller> Travellers { get; set; }
+        public DbSet<Traveler> Travelers { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Activity> Activities { get; set; }
         public DbSet<Interest> Interests { get; set; }

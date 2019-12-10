@@ -13,9 +13,9 @@ namespace TravelSite.Models
         public Guid Id { get; set; }
         public double? Rating { get; set; }
         public string Comment { get; set; }
-        [ForeignKey("Traveller")]
-        public Guid TravellerId { get; set;}
-        public Traveller Traveller { get; set; }
+        [ForeignKey("Traveler")]
+        public Guid TravelerId { get; set;}
+        public Traveler Traveler { get; set; }
         [ForeignKey("Activity")]
         public Guid ActivityId { get; set; }
         public Activity Activity { get; set; }
