@@ -13,7 +13,7 @@ namespace TravelSite.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201912101854480_SecondMigration"; }
+            get { return "201912101952546_SecondMigration"; }
         }
         
         string IMigrationMetadata.Source

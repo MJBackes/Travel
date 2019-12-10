@@ -21,12 +21,6 @@ namespace TravelSite.Controllers
             return View();
         }
 
-        // GET: Traveler/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: Traveler/Create
         public ActionResult Create()
         {
@@ -107,28 +101,6 @@ namespace TravelSite.Controllers
                 Traveler TravelerFromDb = db.Travelers.FirstOrDefault(t => t.ApplicationUserId == userId);
                 TravelerFromDb.FirstName = Traveler.FirstName;
                 TravelerFromDb.LastName = Traveler.LastName;
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Traveler/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Traveler/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
                 return RedirectToAction("Index");
             }
             catch
