@@ -9,13 +9,17 @@ namespace TravelSite.Models
 {
     public class Itinerary
     {
+        public Itinerary()
+        {
+            Activities = new HashSet<Activity>();
+            Travellers = new HashSet<Traveller>();
+        }
         [Key]
         public Guid Id { get; set; }
         public string City { get; set; }
         public string State { get; set; }
         public TimeSpan TimeSpan { get; set; }
-        [ForeignKey("Activities")]
-        public Guid ActivityId { get; set; }
         public ICollection<Activity> Activities { get; set; }
+        public ICollection<Traveller> Travellers { get; set; }
     }
 }

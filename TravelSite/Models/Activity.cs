@@ -9,12 +9,15 @@ namespace TravelSite.Models
 {
     public class Activity
     {
+        public Activity()
+        {
+            Interests = new HashSet<Interest>();
+        }
         [Key]
         public Guid Id{ get; set; }
         public string Name { get; set; }
         public Location Location { get; set; }
-        [ForeignKey("Interests")]
-        public int? InterestId { get; set; }
-        public List<Interest> Interests { get; set; }
+        public ICollection<Interest> Interests { get; set; }
+
     }
 }

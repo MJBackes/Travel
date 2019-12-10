@@ -37,33 +37,76 @@ namespace TravelSite.Controllers
         [HttpPost]
         public ActionResult Create(Traveller traveller)
         {
-            try
-            {
+            traveller.Id = Guid.NewGuid();
                 traveller.ApplicationUserId = User.Identity.GetUserId();
                 db.Travellers.Add(traveller);
                 db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            catch
+                return RedirectToAction("GetInterests");
+
+        }
+        [HttpGet]
+        public ActionResult GetInterests()
+        {
+            return View(db.Interests.ToList());
+        }
+        [HttpPost]
+        public ActionResult GetInterests(List<Interest> interests)
+        {
+            var userId = User.Identity.GetUserId();
+            Traveller traveller = db.Travellers.FirstOrDefault(t => t.ApplicationUserId == userId);
+            foreach(Interest interest in interests)
             {
-                return View();
+                if(interest.isChecked)
+                traveller.Interests.Add(db.Interests.FirstOrDefault(i => i.Id == interest.Id));
             }
+            db.SaveChanges();
+            return View("Index");
         }
 
-        // GET: Traveller/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public ActionResult EditInterests()
         {
-            return View();
+            var userId = User.Identity.GetUserId();
+            return View(db.Travellers.First(t => t.ApplicationUserId == userId).Interests.ToList());
+        }
+        [HttpPost]
+        public ActionResult EditInteresets(List<Interest> interests)
+        {
+            var userId = User.Identity.GetUserId();
+            List<Interest> origianlInterests = db.Travellers.First(t => t.ApplicationUserId == userId).Interests.ToList();
+            foreach(Interest i in origianlInterests)
+            {
+                if (!interests.Contains(i))
+                {
+                    origianlInterests.Remove(i);
+                }
+            }
+            foreach (Interest i in interests)
+            {
+                if (!origianlInterests.Contains(i))
+                {
+                    origianlInterests.Add(i);
+                }
+            }
+            return View("Index");
+        }
+        // GET: Traveller/Edit/5
+        public ActionResult Edit()
+        {
+            var userId = User.Identity.GetUserId();
+            return View(db.Travellers.FirstOrDefault(t => t.ApplicationUserId == userId));
         }
 
         // POST: Traveller/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Traveller traveller)
         {
             try
             {
-                // TODO: Add update logic here
-
+                var userId = User.Identity.GetUserId();
+                Traveller travellerFromDb = db.Travellers.FirstOrDefault(t => t.ApplicationUserId == userId);
+                travellerFromDb.FirstName = traveller.FirstName;
+                travellerFromDb.LastName = traveller.LastName;
                 return RedirectToAction("Index");
             }
             catch
