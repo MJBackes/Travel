@@ -50,7 +50,20 @@ namespace TravelSite.Controllers
                 return View();
             }
         }
-
+        [HttpGet]
+        public ActionResult GetActivities()
+        {
+            //To do:
+            //Get activity data from APIs to populate view.
+            return View();
+        }
+        [HttpPost]
+        public ActionResult GetActivities(List<Activity> activities)
+        {
+            //To do:
+            //Logic to store activities chosen in view to DB.
+            return View("Index");
+        }
         // GET: Itinerary/Edit/5
         public ActionResult Edit(int id)
         {
