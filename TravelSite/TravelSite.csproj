@@ -251,6 +251,7 @@
     <Content Include="Views\Traveler\Create.cshtml" />
     <Content Include="Views\Traveler\GetInterests.cshtml" />
     <Content Include="Views\Traveler\Index.cshtml" />
+    <Content Include="Views\Traveler\EditInterests.cshtml" />
     <Content Include="Views\Itinerary\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
