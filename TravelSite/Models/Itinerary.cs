@@ -19,6 +19,12 @@ namespace TravelSite.Models
         public string City { get; set; }
         public string State { get; set; }
         public TimeSpan TimeSpan { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/DD/YYYY}")]
+        [DataType(DataType.Date)]
+        public DateTime StartDate { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/DD/YYYY}")]
+        [DataType(DataType.Date)]
+        public DateTime EndDate { get; set; }
         public ICollection<Activity> Activities { get; set; }
         public ICollection<Traveler> Travelers { get; set; }
     }
