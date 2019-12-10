@@ -66,19 +66,19 @@ namespace TravelSite.Controllers
         [HttpGet]
         public ActionResult EditInterests()
         {
-            var userId = User.Identity.GetUserId();
             return View(db.Interests.ToList());
         }
         [HttpPost]
         public ActionResult EditInterests(List<Interest> interests)
         {
             var userId = User.Identity.GetUserId();
-            Traveler traveler = db.Travelers.First(t => t.ApplicationUserId == userId);
-            foreach (Interest i in traveler.Interests)
+            Traveler traveler = db.Travelers.Include("Interests").First(t => t.ApplicationUserId == userId);
+            for (int i = 0; i < traveler.Interests.Count; i++)
             {
-                if (!interests.Contains(i))
+                if (!interests.Contains(traveler.Interests.ToList()[i]))
                 {
-                    traveler.Interests.Remove(i);
+                    traveler.Interests.Remove(traveler.Interests.ToList()[i]);
+                    i--;
                 }
             }
             foreach (Interest i in interests)
