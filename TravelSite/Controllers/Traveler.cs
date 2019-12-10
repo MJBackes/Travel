@@ -67,27 +67,28 @@ namespace TravelSite.Controllers
         public ActionResult EditInterests()
         {
             var userId = User.Identity.GetUserId();
-            return View(db.Travelers.First(t => t.ApplicationUserId == userId).Interests.ToList());
+            return View(db.Interests.ToList());
         }
         [HttpPost]
-        public ActionResult EditInteresets(List<Interest> interests)
+        public ActionResult EditInterests(List<Interest> interests)
         {
             var userId = User.Identity.GetUserId();
-            List<Interest> origianlInterests = db.Travelers.First(t => t.ApplicationUserId == userId).Interests.ToList();
-            foreach(Interest i in origianlInterests)
+            Traveler traveler = db.Travelers.First(t => t.ApplicationUserId == userId);
+            foreach (Interest i in traveler.Interests)
             {
                 if (!interests.Contains(i))
                 {
-                    origianlInterests.Remove(i);
+                    traveler.Interests.Remove(i);
                 }
             }
             foreach (Interest i in interests)
             {
-                if (!origianlInterests.Contains(i))
+                if (!traveler.Interests.Contains(i) && i.isChecked)
                 {
-                    origianlInterests.Add(i);
+                    traveler.Interests.Add(db.Interests.FirstOrDefault(interest => interest.Id == i.Id));
                 }
             }
+            db.SaveChanges();
             return View("Index");
         }
         // GET: Traveler/Edit/5

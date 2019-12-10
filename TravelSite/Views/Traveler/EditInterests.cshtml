@@ -1,0 +1,33 @@
+﻿@model List<TravelSite.Models.Interest>
+@{
+    ViewBag.Title = "EditInterests";
+}
+
+<h2>Edit Interests</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label>Interests</label>
+            <div class="col-md-10">
+
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    @Html.CheckBoxFor(m => m[i].isChecked)
+                    @Html.HiddenFor(m => m[i].Id)
+                    <label>@Model[i].Name</label>
+                    <br />
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Edit" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+}
