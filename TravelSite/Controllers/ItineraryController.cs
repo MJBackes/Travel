@@ -42,7 +42,8 @@ namespace TravelSite.Controllers
                 var userId = User.Identity.GetUserId();
                 itinerary.Travelers.Add(db.Travelers.FirstOrDefault(t => t.ApplicationUserId == userId));
                 itinerary.Id = Guid.NewGuid();
-                return RedirectToAction("Index");
+                itinerary.TimeSpan = itinerary.EndDate - itinerary.StartDate;
+                return RedirectToAction("GetActivities");
             }
             catch
             {

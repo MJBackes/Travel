@@ -111,6 +111,8 @@ namespace TravelSite.Migrations
                         City = c.String(),
                         State = c.String(),
                         TimeSpan = c.Time(nullable: false, precision: 7),
+                        StartDate = c.DateTime(nullable: false),
+                        EndDate = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
