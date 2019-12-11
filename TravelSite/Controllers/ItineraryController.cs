@@ -43,7 +43,7 @@ namespace TravelSite.Controllers
                 itinerary.Travelers.Add(db.Travelers.FirstOrDefault(t => t.ApplicationUserId == userId));
                 itinerary.Id = Guid.NewGuid();
                 itinerary.TimeSpan = itinerary.EndDate - itinerary.StartDate;
-                return RedirectToAction("GetActivities");
+                return View("FindHotel", itinerary);
             }
             catch
             {
@@ -108,9 +108,9 @@ namespace TravelSite.Controllers
             }
         }
         [HttpGet]
-        public ActionResult FindHotel()
+        public ActionResult FindHotel(Itinerary itinerary)
         {
-            return View();
+            return View(itinerary);
         }
     }
 }
