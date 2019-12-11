@@ -43,6 +43,8 @@ namespace TravelSite.Controllers
                 itinerary.Travelers.Add(db.Travelers.FirstOrDefault(t => t.ApplicationUserId == userId));
                 itinerary.Id = Guid.NewGuid();
                 itinerary.TimeSpan = itinerary.EndDate - itinerary.StartDate;
+                if (itinerary.TimeSpan.TotalDays < 0)
+                    return View();
                 return View("FindHotel", itinerary);
             }
             catch
