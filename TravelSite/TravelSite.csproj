@@ -162,6 +162,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIKey.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -255,6 +256,7 @@
     <Content Include="Views\Traveler\GetInterests.cshtml" />
     <Content Include="Views\Traveler\Index.cshtml" />
     <Content Include="Views\Traveler\Edit.cshtml" />
+    <Content Include="Views\Traveler\ChooseHotel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
