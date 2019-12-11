@@ -176,9 +176,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201912111545561_ThirdMigration.cs" />
-    <Compile Include="Migrations\201912111545561_ThirdMigration.Designer.cs">
-      <DependentUpon>201912111545561_ThirdMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201912111959421_SecondMigration.cs" />
+    <Compile Include="Migrations\201912111959421_SecondMigration.Designer.cs">
+      <DependentUpon>201912111959421_SecondMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -264,6 +264,7 @@
     <Content Include="Views\Itinerary\Create.cshtml" />
     <Content Include="Views\Itinerary\FindHotel.cshtml" />
     <Content Include="Views\Itinerary\GetActivites.cshtml" />
+    <Content Include="Views\Traveler\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -282,8 +283,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201912111545561_ThirdMigration.resx">
-      <DependentUpon>201912111545561_ThirdMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201912111959421_SecondMigration.resx">
+      <DependentUpon>201912111959421_SecondMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -320,7 +321,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
-
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

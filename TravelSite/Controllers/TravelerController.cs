@@ -102,7 +102,7 @@ namespace TravelSite.Controllers
                 Traveler TravelerFromDb = db.Travelers.FirstOrDefault(t => t.ApplicationUserId == userId);
                 TravelerFromDb.FirstName = Traveler.FirstName;
                 TravelerFromDb.LastName = Traveler.LastName;
-                db.SaveChanges();\
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
