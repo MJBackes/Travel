@@ -45,7 +45,7 @@ namespace TravelSite.Controllers
                 itinerary.TimeSpan = itinerary.EndDate - itinerary.StartDate;
                 if (itinerary.TimeSpan.TotalDays < 0)
                     return View();
-                return RedirectToAction("GetActivities");
+                return View("FindHotel", itinerary);
             }
             catch
             {
@@ -103,6 +103,30 @@ namespace TravelSite.Controllers
                 // TODO: Add delete logic here
 
                 return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        [HttpGet]
+        public ActionResult FindHotel()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult FindHotel(Itinerary itinerary)
+        {
+            try
+            {
+                var userId = User.Identity.GetUserId();
+                Traveler traveler = db.Travelers.FirstOrDefault(t => t.ApplicationUserId == userId);
+                itinerary.Id = Guid.NewGuid();
+                traveler.Itineraries.Add(itinerary);
+                db.SaveChanges();
+                if (itinerary.TimeSpan.TotalDays < 0)
+                    return View();
+                return View("GetActivites");
             }
             catch
             {

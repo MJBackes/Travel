@@ -3,7 +3,7 @@ namespace TravelSite.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class SecondMigration : DbMigration
+    public partial class ThirdMigration : DbMigration
     {
         public override void Up()
         {
@@ -14,13 +14,10 @@ namespace TravelSite.Migrations
                         Id = c.Guid(nullable: false),
                         Name = c.String(),
                         Itinerary_Id = c.Guid(),
-                        Location_Id = c.Guid(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Itineraries", t => t.Itinerary_Id)
-                .ForeignKey("dbo.Locations", t => t.Location_Id)
-                .Index(t => t.Itinerary_Id)
-                .Index(t => t.Location_Id);
+                .Index(t => t.Itinerary_Id);
             
             CreateTable(
                 "dbo.Interests",
@@ -113,16 +110,7 @@ namespace TravelSite.Migrations
                         TimeSpan = c.Time(nullable: false, precision: 7),
                         StartDate = c.DateTime(nullable: false),
                         EndDate = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
-            
-            CreateTable(
-                "dbo.Locations",
-                c => new
-                    {
-                        Id = c.Guid(nullable: false),
-                        Lat = c.Double(),
-                        Long = c.Double(),
+                        HotelPlaceId = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -198,7 +186,6 @@ namespace TravelSite.Migrations
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.Reviews", "TravelerId", "dbo.Travelers");
             DropForeignKey("dbo.Reviews", "ActivityId", "dbo.Activities");
-            DropForeignKey("dbo.Activities", "Location_Id", "dbo.Locations");
             DropForeignKey("dbo.ItineraryTravelers", "Traveler_Id", "dbo.Travelers");
             DropForeignKey("dbo.ItineraryTravelers", "Itinerary_Id", "dbo.Itineraries");
             DropForeignKey("dbo.Activities", "Itinerary_Id", "dbo.Itineraries");
@@ -225,14 +212,12 @@ namespace TravelSite.Migrations
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.Travelers", new[] { "ApplicationUserId" });
-            DropIndex("dbo.Activities", new[] { "Location_Id" });
             DropIndex("dbo.Activities", new[] { "Itinerary_Id" });
             DropTable("dbo.ItineraryTravelers");
             DropTable("dbo.TravelerInterests");
             DropTable("dbo.InterestActivities");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.Reviews");
-            DropTable("dbo.Locations");
             DropTable("dbo.Itineraries");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");

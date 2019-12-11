@@ -176,9 +176,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201912101952546_SecondMigration.cs" />
-    <Compile Include="Migrations\201912101952546_SecondMigration.Designer.cs">
-      <DependentUpon>201912101952546_SecondMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201912111545561_ThirdMigration.cs" />
+    <Compile Include="Migrations\201912111545561_ThirdMigration.Designer.cs">
+      <DependentUpon>201912111545561_ThirdMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -262,6 +262,8 @@
     <Content Include="Views\Traveler\Index.cshtml" />
     <Content Include="Views\Traveler\EditInterests.cshtml" />
     <Content Include="Views\Itinerary\Create.cshtml" />
+    <Content Include="Views\Itinerary\FindHotel.cshtml" />
+    <Content Include="Views\Itinerary\GetActivites.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -280,8 +282,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201912101952546_SecondMigration.resx">
-      <DependentUpon>201912101952546_SecondMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201912111545561_ThirdMigration.resx">
+      <DependentUpon>201912111545561_ThirdMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
