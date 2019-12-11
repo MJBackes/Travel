@@ -45,7 +45,7 @@ namespace TravelSite.Controllers
                 itinerary.TimeSpan = itinerary.EndDate - itinerary.StartDate;
                 if (itinerary.TimeSpan.TotalDays < 0)
                     return View();
-                return RedirectToAction("GetActivities");
+                return View("FindHotel", itinerary);
             }
             catch
             {
@@ -108,6 +108,11 @@ namespace TravelSite.Controllers
             {
                 return View();
             }
+        }
+        [HttpGet]
+        public ActionResult FindHotel(Itinerary itinerary)
+        {
+            return View(itinerary);
         }
     }
 }
