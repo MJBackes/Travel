@@ -107,5 +107,10 @@ namespace TravelSite.Controllers
                 return View();
             }
         }
+        [HttpGet]
+        public ActionResult FindHotel()
+        {
+            return View();
+        }
     }
 }

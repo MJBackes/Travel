@@ -7,13 +7,13 @@ namespace TravelSite.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class SecondMigration : IMigrationMetadata
+    public sealed partial class SecondMigragtion : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(SecondMigration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(SecondMigragtion));
         
         string IMigrationMetadata.Id
         {
-            get { return "201912101952546_SecondMigration"; }
+            get { return "201912111408181_SecondMigragtion"; }
         }
         
         string IMigrationMetadata.Source
