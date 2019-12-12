@@ -1,4 +1,4 @@
-﻿
+﻿@model TravelSite.Models.Itinerary
 @{
     ViewBag.Title = "GetActivites";
 }
@@ -26,22 +26,6 @@
         font-size: 12px;
     }
 
-    .hotel-search {
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        background: #fff;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        left: 0;
-        position: absolute;
-        top: 0;
-        width: 440px;
-        z-index: 1;
-        margin-top: 50px;
-    }
-
     #map {
         margin-top: 40px;
         width: 440px;
@@ -57,23 +41,6 @@
         top: 0px;
         cursor: pointer;
         overflow-x: hidden;
-    }
-
-    #findhotels {
-        font-size: 14px;
-    }
-
-    #locationField {
-        -webkit-box-flex: 1 1 190px;
-        -ms-flex: 1 1 190px;
-        flex: 1 1 190px;
-        margin: 0 8px;
-    }
-
-    #controls {
-        -webkit-box-flex: 1 1 140px;
-        -ms-flex: 1 1 140px;
-        flex: 1 1 140px;
     }
 
     #autocomplete {
@@ -173,21 +140,6 @@
             </div>
         </div>
         //end slider display code
-        <div class="form-group">
-            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
         @Html.HiddenFor(model => model.HotelPlaceId, new { id = "hotelPlaceId" })
     }
 
@@ -267,15 +219,15 @@
                 function search() {
                     var search = {
                         bounds: map.getBounds(),
-                        types: ['lodging']
+                        types: []
                     };
-
+                    for (let i = 0; i < @Model.Travelers.ToList()[0].Interests.Count; i++) {
+                        search.types.concat(@Model.Travelers.ToList()[0].Interests.ToArray());
+                    }
                     places.nearbySearch(search, function (results, status) {
                         if (status === google.maps.places.PlacesServiceStatus.OK) {
                             clearResults();
                             clearMarkers();
-                            // Create a marker for each hotel found, and
-                            // assign a letter of the alphabetic to each marker icon.
                             placeMarkers(results, $("#rangeinput").val());
                         }
                     });

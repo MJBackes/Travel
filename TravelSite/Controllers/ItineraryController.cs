@@ -57,6 +57,7 @@ namespace TravelSite.Controllers
         {
             //To do:
             //Get activity data from APIs to populate view.
+
             return View();
         }
         [HttpPost]
