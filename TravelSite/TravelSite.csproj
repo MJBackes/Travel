@@ -185,7 +185,6 @@
       <DependentUpon>201912111959421_SecondMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Geometry.cs" />
@@ -195,6 +194,7 @@
     <Compile Include="Models\Itinerary.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\NearByResponse.cs" />
     <Compile Include="Models\Northeast.cs" />
     <Compile Include="Models\OpeningHours.cs" />
     <Compile Include="Models\Photos.cs" />

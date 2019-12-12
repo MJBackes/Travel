@@ -6,14 +6,18 @@
     <style>
          /* Always set the map height explicitly to define the size of the div
         * element that contains the map. */
-         #map {
+        #map {
              height: 100%;
          }
+
+        /*#map-canvas { height: 70%; width :50%; margin-left:auto; margin-right:auto;}*/
+
          /* Optional: Makes the sample page fill the window. */
          html, body {
              height: 100%;
              margin: 0;
              padding: 0;
+             position: center;
          }
 
          body {
@@ -25,24 +29,17 @@
          }
 
          .hotel-search {
-             -webkit-box-align: center;
-             -ms-flex-align: center;
-             align-items: center;
-             background: #fff;
-             display: -webkit-box;
-             display: -ms-flexbox;
-             display: flex;
-             left: 0;
-             position: absolute;
+             display: inline-flex;
+             margin-top: 70px;
              width: 440px;
-             z-index: 1;
-             margin-top:15px;
          }
 
          #map {
-             margin-top: 40px;
+             margin-top: 5px;
              width: 440px;
              height: 440px;
+             margin-left: auto;
+             margin-right: auto;
          }
 
          #listing {
@@ -50,8 +47,8 @@
              width: 200px;
              height: 440px;
              overflow: auto;
-             left: 442px;
-             top: 0px;
+             margin-left: 60%;
+             margin-top: 35px;
              cursor: pointer;
              overflow-x: hidden;
              top:50px;
@@ -60,6 +57,7 @@
          #findhotels {
              font-size: 14px;
          }
+
 
          #locationField {
              -webkit-box-flex: 1 1 190px;
@@ -115,30 +113,36 @@
          .iw_table_icon {
              text-align: right;
          }
+
     </style>
+
+
+
 <script type="text/javascript" src="~/Scripts/jquery-3.3.1.js"></script>
     <body>
             @using (Html.BeginForm())
             {
-                <div class="hotel-search">
-                    <div id="findhotels">
-                        Find hotels in:
-                    </div>
+                <center>
+                <div class="hotel-search" class="col-lg-1">
+                        <div id="findhotels" class="col-md-4">
+                            Find hotels in:
+                        </div>
 
-                    <div id="locationField">
-                        @Html.TextBoxFor(model => model.City, new { id = "autocomplete", placeholder = "Enter a destination" })
-                    </div>
+                        <div id="locationField" class="col-md-3">
+                            @Html.TextBoxFor(model => model.City, new { id = "autocomplete", placeholder = "Enter a destination" })
+                        </div>
 
-                    <div id="controls">
-                        <select id="country">
-                            <option value="us" selected>U.S.A.</option>
-                        </select>
-                    </div>
+                        <div id="controls">
+                            <select id="country" class="col-md-3">
+                                <option value="us" selected>U.S.A.</option>
+                            </select>
+                        </div>
                 </div>
+                    </center>
 
-                <div id="map"></div>
-
-                <div id="listing">
+                    <div id="map" class="col-md-offset-4"></div>
+               
+                <div id="listing" class="col-m">
                     <table id="resultsTable">
                         <tbody id="results"></tbody>
                     </table>
@@ -179,30 +183,37 @@
                 </div>
                 //slider display code
                 <div>
-                    <div id="slider">
-                        <input class="bar" type="range" id="rangeinput" min="1" max="50" value="30" onchange="rangevalue.value = value/10" />
-                        <span class="highlight"></span>
-                        <output id="rangevalue">3</output>
-                    </div>
+                    <center>
+                        <div id="slider">
+                            <input class="bar" type="range" id="rangeinput" min="1" max="50" value="30" onchange="rangevalue.value = value/10" />
+                            <span class="highlight"></span>
+                            <output id="rangevalue">3</output>
+                        </div>
+                    </center>
                 </div>
                 //end slider display code
+    
                 <div class="form-group">
-                    @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
-                    </div>
+                    <center>
+                    @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label" })
+                        <div>
+                            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                        </div>
+                    </center>
                 </div>
-
                 <div class="form-group">
-                    @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
-                    </div>
+                    <center>
+                        @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label" })
+                        <div>
+                            @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                        </div>
+                    </center>
                 </div>
                 @Html.HiddenFor(model => model.HotelPlaceId, new { id = "hotelPlaceId" })
-            }
+   
+             }
             
             <script>
                 // This example uses the autocomplete feature of the Google Places API.

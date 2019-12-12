@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -21,9 +22,11 @@ namespace TravelSite.Models
         public TimeSpan TimeSpan { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         [DataType(DataType.Date)]
+        [DisplayName("START DATE")]
         public DateTime StartDate { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         [DataType(DataType.Date)]
+        [DisplayName("END DATE")]
         public DateTime EndDate { get; set; }
         public ICollection<Activity> Activities { get; set; }
         public ICollection<Traveler> Travelers { get; set; }
