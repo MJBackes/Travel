@@ -34,10 +34,9 @@
              display: flex;
              left: 0;
              position: absolute;
-             top: 0;
              width: 440px;
              z-index: 1;
-             margin-top:50px;
+             margin-top:15px;
          }
 
          #map {
@@ -49,12 +48,13 @@
          #listing {
              position: absolute;
              width: 200px;
-             height: 470px;
+             height: 440px;
              overflow: auto;
              left: 442px;
              top: 0px;
              cursor: pointer;
              overflow-x: hidden;
+             top:50px;
          }
 
          #findhotels {
@@ -116,6 +116,7 @@
              text-align: right;
          }
     </style>
+<script type="text/javascript" src="~/Scripts/jquery-3.3.1.js"></script>
     <body>
             @using (Html.BeginForm())
             {
@@ -179,9 +180,9 @@
                 //slider display code
                 <div>
                     <div id="slider">
-                        <input class="bar" type="range" id="rangeinput" min="1" max="5" value="1" onchange="rangevalue.value=value" />
+                        <input class="bar" type="range" id="rangeinput" min="1" max="50" value="30" onchange="rangevalue.value = value/10" />
                         <span class="highlight"></span>
-                        <output id="rangevalue">1</output>
+                        <output id="rangevalue">3</output>
                     </div>
                 </div>
                 //end slider display code
@@ -202,6 +203,7 @@
                 </div>
                 @Html.HiddenFor(model => model.HotelPlaceId, new { id = "hotelPlaceId" })
             }
+            
             <script>
                 // This example uses the autocomplete feature of the Google Places API.
                 // It allows the user to find all hotels in a given place, within a given
@@ -262,13 +264,18 @@
                     var place = autocomplete.getPlace();
                     if (place.geometry) {
                         map.panTo(place.geometry.location);
-                        map.setZoom(15);
+                        map.setZoom(14);
                         search();
                     } else {
                         document.getElementById('autocomplete').placeholder = 'Enter a city';
                     }
                 }
 
+                $(document).on('change', '#rangeinput', function() {
+                    if ($("#autocomplete").val()) {
+                        search();
+                    }
+                });
                 // Search for hotels in the selected city, within the viewport of the map.
                 function search() {
                     var search = {
@@ -282,24 +289,30 @@
                             clearMarkers();
                             // Create a marker for each hotel found, and
                             // assign a letter of the alphabetic to each marker icon.
-                            for (var i = 0; i < results.length; i++) {
-                                var markerLetter = String.fromCharCode('A'.charCodeAt(0) + (i % 26));
-                                var markerIcon = MARKER_PATH + markerLetter + '.png';
-                                // Use marker animation to drop the icons incrementally on the map.
-                                markers[i] = new google.maps.Marker({
-                                    position: results[i].geometry.location,
-                                    animation: google.maps.Animation.DROP,
-                                    icon: markerIcon
-                                });
-                                // If the user clicks a hotel marker, show the details of that hotel
-                                // in an info window.
-                                markers[i].placeResult = results[i];
-                                google.maps.event.addListener(markers[i], 'click', showInfoWindow);
-                                setTimeout(dropMarker(i), i * 100);
-                                addResult(results[i], i);
-                            }
+                            placeMarkers(results, $("#rangevalue").val());
                         }
                     });
+                }
+
+                function placeMarkers(results, ratingValue){
+                    for (var i = 0; i < results.length; i++) {
+                        if (results[i].rating <= ratingValue && results[i].rating >= ratingValue - 1) {
+                            var markerLetter = String.fromCharCode('A'.charCodeAt(0) + (i % 26));
+                            var markerIcon = MARKER_PATH + markerLetter + '.png';
+                            // Use marker animation to drop the icons incrementally on the map.
+                            markers[i] = new google.maps.Marker({
+                                position: results[i].geometry.location,
+                                animation: google.maps.Animation.DROP,
+                                icon: markerIcon
+                            });
+                            // If the user clicks a hotel marker, show the details of that hotel
+                            // in an info window.
+                            markers[i].placeResult = results[i];
+                            google.maps.event.addListener(markers[i], 'click', showInfoWindow);
+                            setTimeout(dropMarker(i), i * 100);
+                            addResult(results[i], i);
+                        }
+                    }
                 }
 
                 function clearMarkers() {
