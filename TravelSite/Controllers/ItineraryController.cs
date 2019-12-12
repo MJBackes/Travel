@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TravelSite.Models;
+using static TravelSite.Models._;
 
 namespace TravelSite.Controllers
 {
@@ -57,15 +58,50 @@ namespace TravelSite.Controllers
         {
             //To do:
             //Get activity data from APIs to populate view.
-
+            var userId = User.Identity.GetUserId();
+            Traveler traveler = db.Travelers.Include("Interests").Include("CurrentItinerary").FirstOrDefault(t => t.ApplicationUserId == userId);
+            ViewBag.Popular = GetPopularActivities(traveler);
             return View();
         }
+        private List<Business> GetPopularActivities(Traveler traveler)
+        {
+            List<Business> output = new List<Business>();
+            for (int i = 0; i < traveler.Interests.Count; i++)
+            {
+                List<Business> businesses = YelpAPIHandler.GetActivities(traveler.CurrentItinerary.HotelLocationString, 36000, traveler.Interests.ToList()[i].Value, "").Result.businesses.ToList();
+                foreach (Business b in businesses)
+                    output.Add(b);
+            }
+            return GetTopFive(output);
+        }
+        private List<Business> GetTopFive(List<Business> businesses)
+        {
+            if (businesses.Count <= 5)
+                return businesses;
+            List<Business> output = new List<Business>();
+            Business TempLargest = null;
+            for (int i = 0; i < 5; i++) {
+                for(int j = 0; j < businesses.Count; j++)
+                {
+                    if (j == 0)
+                    {
+                        TempLargest = businesses[j];
+                        continue;
+                    }
+                    if (businesses[j].review_count > TempLargest.review_count && output.Where(b => b.id == businesses[j].id).ToList().Count == 0)
+                        TempLargest = businesses[j];
+                }
+                output.Add(TempLargest);
+                businesses.Remove(TempLargest);
+            }
+            return output;
+        }
         [HttpPost]
-        public ActionResult GetActivities(List<Activity> activities)
+        public ActionResult GetActivities(List<NearByResponse> activities)
         {
             //To do:
             //Logic to store activities chosen in view to DB.
-            return View("Index");
+            return View();
         }
         // GET: Itinerary/Edit/5
         public ActionResult Edit(int id)
@@ -124,10 +160,11 @@ namespace TravelSite.Controllers
                 Traveler traveler = db.Travelers.FirstOrDefault(t => t.ApplicationUserId == userId);
                 itinerary.Id = Guid.NewGuid();
                 traveler.Itineraries.Add(itinerary);
+                traveler.CurrentItineraryID = itinerary.Id;
                 db.SaveChanges();
-                if (itinerary.TimeSpan.TotalDays < 0)
+                if (itinerary.StartDate.Ticks - itinerary.EndDate.Ticks >= 0)
                     return View();
-                return View("GetActivites");
+                return RedirectToAction("GetActivities");
             }
             catch
             {

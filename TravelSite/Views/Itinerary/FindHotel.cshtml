@@ -201,7 +201,7 @@
                         @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                @Html.HiddenFor(model => model.HotelPlaceId, new { id = "hotelPlaceId" })
+                @Html.HiddenFor(model => model.HotelLocationString, new { id = "hotelLocation" })
             }
             
             <script>
@@ -220,7 +220,7 @@
                 var countryRestrict = { 'country': 'us' };
                 var MARKER_PATH = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
                 var hostnameRegexp = new RegExp('^https?://.+?/');
-
+                var searchResults;
                 var countries = {
                     'us': {
                         center: { lat: 37.1, lng: -95.7 },
@@ -273,7 +273,7 @@
 
                 $(document).on('change', '#rangeinput', function() {
                     if ($("#autocomplete").val()) {
-                        search();
+                        placeMarkers(searchResults, $("#rangevalue").val());
                     }
                 });
                 // Search for hotels in the selected city, within the viewport of the map.
@@ -289,6 +289,7 @@
                             clearMarkers();
                             // Create a marker for each hotel found, and
                             // assign a letter of the alphabetic to each marker icon.
+                            searchResults = results;
                             placeMarkers(results, $("#rangevalue").val());
                         }
                     });
@@ -442,7 +443,7 @@
                         document.getElementById('iw-website-row').style.display = 'none';
 
                     }
-                    $("#hotelPlaceId").val(place.place_id);
+                    $("#hotelLocation").val("" + place.geometry.location.lat() + "," + place.geometry.location.lng());
                 }
             </script>
             <script src="https://maps.googleapis.com/maps/api/js?key=@APIKey.Google&libraries=places&callback=initMap"

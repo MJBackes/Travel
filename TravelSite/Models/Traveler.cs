@@ -21,6 +21,9 @@ namespace TravelSite.Models
         public string FirstName { get; set; }
         [DisplayName("Last Name")]
         public string LastName { get; set; }
+        [ForeignKey("CurrentItinerary")]
+        public Guid? CurrentItineraryID { get; set; }
+        public Itinerary CurrentItinerary { get; set; }
         [ForeignKey("ApplicationUser")]
         public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser {get;set;}

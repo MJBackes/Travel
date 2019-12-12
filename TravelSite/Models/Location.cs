@@ -7,9 +7,10 @@ using System.Web;
 
 namespace TravelSite.Models
 {
-    [NotMapped]
     public class Location
     {
+        [Key]
+        public Guid Id { get; set; }
         public double? Lat { get; set; }
         public double? Long { get; set; }
     }

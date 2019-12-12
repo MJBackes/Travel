@@ -27,6 +27,6 @@ namespace TravelSite.Models
         public DateTime EndDate { get; set; }
         public ICollection<Activity> Activities { get; set; }
         public ICollection<Traveler> Travelers { get; set; }
-        public string HotelPlaceId { get; set; }
+        public string HotelLocationString { get; set; }
     }
 }
