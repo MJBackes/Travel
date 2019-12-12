@@ -16,7 +16,7 @@ namespace TravelSite
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
             string GoogleNearBySeachURI = $"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={location}&radius={radius}&type={type}&keyword={keyword}&key={APIKey.Google}";
-            using(HttpResponseMessage message = await client.GetAsync(GoogleNearBySeachURI))
+            using(HttpResponseMessage message = await client.GetAsync(GoogleNearBySeachURI).ConfigureAwait(false))
             {
                 if (message.IsSuccessStatusCode)
                 {

@@ -180,11 +180,16 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="GoogleAPIHandler.cs" />
-    <Compile Include="Migrations\201912111959421_SecondMigration.cs" />
-    <Compile Include="Migrations\201912111959421_SecondMigration.Designer.cs">
-      <DependentUpon>201912111959421_SecondMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201912121956039_SecondMigration.cs" />
+    <Compile Include="Migrations\201912121956039_SecondMigration.Designer.cs">
+      <DependentUpon>201912121956039_SecondMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+<<<<<<< HEAD
+=======
+    <Compile Include="Models\YelpBusinessResponse.cs" />
+    <Compile Include="Models\NearByResponse.cs" />
+>>>>>>> 752ef27eb1d6e4504df5b2b0a587ad3ff556ef2a
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Geometry.cs" />
@@ -205,6 +210,7 @@
     <Compile Include="Models\ViewPort.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="YelpAPIHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -268,7 +274,7 @@
     <Content Include="Views\Traveler\EditInterests.cshtml" />
     <Content Include="Views\Itinerary\Create.cshtml" />
     <Content Include="Views\Itinerary\FindHotel.cshtml" />
-    <Content Include="Views\Itinerary\GetActivites.cshtml" />
+    <Content Include="Views\Itinerary\GetActivities.cshtml" />
     <Content Include="Views\Traveler\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -288,8 +294,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201912111959421_SecondMigration.resx">
-      <DependentUpon>201912111959421_SecondMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201912121956039_SecondMigration.resx">
+      <DependentUpon>201912121956039_SecondMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
