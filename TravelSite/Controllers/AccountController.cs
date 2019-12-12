@@ -452,7 +452,7 @@ namespace TravelSite.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Traveler");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult
