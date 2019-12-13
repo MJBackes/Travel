@@ -183,15 +183,19 @@
     <script>
         var map, bounds, infoWindow;
         var markers = [];
-        var popularMarkers = [];
         var hostnameRegexp = new RegExp('^https?://.+?/');
         var searchResults = @Html.Raw(Json.Encode(ViewBag.Activities));
-        for
         var popularResults = @Html.Raw(Json.Encode(ViewBag.Popular));
+        //for (let i = 0; i < searchResults.length; i++) {
+        //    if () {
+        //        searchResults[i].isPopular = true;
+        //    } else {
+        //        searchResults[i].isPopular = false;
+        //    }
+        //}
         $(document).ready( function(){
             initMap();
-            placeMarkers(searchResults, $("#rangevalue").val(), $("#ratingvalue").val(),markers, addResult);
-            placeMarkers(popularResults, 36000, 0,popularMarkers, addPopularResult);
+            placeMarkers(searchResults, $("#rangevalue").val(), $("#ratingvalue").val());
         })
 
         function initMap() {
@@ -211,32 +215,32 @@
         }
 
                 $(document).on('change', '#rangeInput', function() {
-                        placeMarkers(searchResults, $("#rangevalue").val(), $("#ratingvalue").val(),markers,addResult);
+                        placeMarkers(searchResults, $("#rangevalue").val(), $("#ratingvalue").val());
                 });
 
                 $(document).on('change', '#ratingInput', function() {
-                         placeMarkers(searchResults, $("#rangevalue").val(), $("#ratingvalue").val(),markers,addResult);
+                         placeMarkers(searchResults, $("#rangevalue").val(), $("#ratingvalue").val());
                 });
 
 
 
-        function placeMarkers(results, rangeValue, ratingValue, markerArray, tableCallback) {
+        function placeMarkers(results, rangeValue, ratingValue) {
             clearMarkers();
             clearResults();
             bounds = new google.maps.LatLngBounds();
                     for (var i = 0; i < results.length; i++) {
-                        if (results[i].rating >= ratingValue && results[i].distance <= (rangeValue*1000)) {
-                            markerArray[i] = new google.maps.Marker({
+                        if (results[i].rating >= ratingValue && results[i].distance <= (rangeValue*1000) || results[i].isPopular) {
+                            markers[i] = new google.maps.Marker({
                                 position: { lat: results[i].coordinates.latitude, lng: results[i].coordinates.longitude},
                                 animation: google.maps.Animation.DROP,
                                 label: results[i].name.charAt(0) + i,
                                 title: results[i].name
                             });
-                            markerArray[i].addListener('click', function () {
+                            markers[i].addListener('click', function () {
                                 buildIWContent(results[parseInt(this.label.slice(1))]);
                             });
-                            markerArray[i].setMap(map);
-                            tableCallback(results[i], i);
+                            markers[i].setMap(map);
+                            results[i].isPopular ? addPopularResult(results[i], i) : addResult(results[i], i);
                             bounds.extend(new google.maps.LatLng({ lat: results[i].coordinates.latitude, lng: results[i].coordinates.longitude }));
                         }
                     }
