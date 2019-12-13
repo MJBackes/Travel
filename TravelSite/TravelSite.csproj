@@ -175,14 +175,15 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItineraryController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ReviewController.cs" />
     <Compile Include="Controllers\TravelerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="GoogleAPIHandler.cs" />
-    <Compile Include="Migrations\201912121956039_SecondMigration.cs" />
-    <Compile Include="Migrations\201912121956039_SecondMigration.Designer.cs">
-      <DependentUpon>201912121956039_SecondMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201912131421374_InitialMigration.cs" />
+    <Compile Include="Migrations\201912131421374_InitialMigration.Designer.cs">
+      <DependentUpon>201912131421374_InitialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\YelpBusinessResponse.cs" />
@@ -196,7 +197,6 @@
     <Compile Include="Models\Itinerary.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\NearByResponse.cs" />
     <Compile Include="Models\Northeast.cs" />
     <Compile Include="Models\OpeningHours.cs" />
     <Compile Include="Models\Photos.cs" />
@@ -273,6 +273,10 @@
     <Content Include="Views\Itinerary\FindHotel.cshtml" />
     <Content Include="Views\Itinerary\GetActivities.cshtml" />
     <Content Include="Views\Traveler\Edit.cshtml" />
+    <Content Include="Views\Review\Create.cshtml" />
+    <Content Include="Views\Review\Edit.cshtml" />
+    <Content Include="Views\Review\Delete.cshtml" />
+    <Content Include="Views\Review\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -291,8 +295,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201912121956039_SecondMigration.resx">
-      <DependentUpon>201912121956039_SecondMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201912131421374_InitialMigration.resx">
+      <DependentUpon>201912131421374_InitialMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
