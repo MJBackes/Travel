@@ -183,11 +183,15 @@
     <script>
         var map, bounds, infoWindow;
         var markers = [];
+        var popularMarkers = [];
         var hostnameRegexp = new RegExp('^https?://.+?/');
         var searchResults = @Html.Raw(Json.Encode(ViewBag.Activities));
+        for
+        var popularResults = @Html.Raw(Json.Encode(ViewBag.Popular));
         $(document).ready( function(){
             initMap();
-            placeMarkers(searchResults, $("#rangevalue").val(), $("#ratingvalue").val());
+            placeMarkers(searchResults, $("#rangevalue").val(), $("#ratingvalue").val(),markers, addResult);
+            placeMarkers(popularResults, 36000, 0,popularMarkers, addPopularResult);
         })
 
         function initMap() {
@@ -207,33 +211,32 @@
         }
 
                 $(document).on('change', '#rangeInput', function() {
-                        placeMarkers(searchResults, $("#rangevalue").val(), $("#ratingvalue").val());
+                        placeMarkers(searchResults, $("#rangevalue").val(), $("#ratingvalue").val(),markers,addResult);
                 });
 
                 $(document).on('change', '#ratingInput', function() {
-                         placeMarkers(searchResults, $("#rangevalue").val(), $("#ratingvalue").val());
+                         placeMarkers(searchResults, $("#rangevalue").val(), $("#ratingvalue").val(),markers,addResult);
                 });
 
 
 
-        function placeMarkers(results, rangeValue, ratingValue) {
+        function placeMarkers(results, rangeValue, ratingValue, markerArray, tableCallback) {
             clearMarkers();
             clearResults();
             bounds = new google.maps.LatLngBounds();
                     for (var i = 0; i < results.length; i++) {
                         if (results[i].rating >= ratingValue && results[i].distance <= (rangeValue*1000)) {
-                            markers[i] = new google.maps.Marker({
+                            markerArray[i] = new google.maps.Marker({
                                 position: { lat: results[i].coordinates.latitude, lng: results[i].coordinates.longitude},
                                 animation: google.maps.Animation.DROP,
                                 label: results[i].name.charAt(0) + i,
                                 title: results[i].name
                             });
-                            markers[i].addListener('click', function () {
+                            markerArray[i].addListener('click', function () {
                                 buildIWContent(results[parseInt(this.label.slice(1))]);
                             });
-                            //setTimeout(dropMarker(i), i * 100);
-                            markers[i].setMap(map);
-                            addResult(results[i], i);
+                            markerArray[i].setMap(map);
+                            tableCallback(results[i], i);
                             bounds.extend(new google.maps.LatLng({ lat: results[i].coordinates.latitude, lng: results[i].coordinates.longitude }));
                         }
                     }
@@ -249,35 +252,35 @@
                     markers = [];
                 }
 
-                function dropMarker(i) {
-                    return function () {
-                        markers[i].setMap(map);
-                    };
-                }
-
                 function addResult(result, i) {
                     var results = document.getElementById('results');
-                    var markerNumber = i;
-
                     var tr = document.createElement('tr');
-                    tr.style.backgroundColor = (i % 2 === 0 ? '#F0F0F0' : '#FFFFFF');
                     tr.onclick = function () {
                         google.maps.event.trigger(markers[i], 'click');
                     };
-
-                    //var iconTd = document.createElement('td');
+                    var labelTd = document.createElement('td');
                     var nameTd = document.createElement('td');
-                    //var icon = document.createElement('img');
-                    ////icon.src = markerIcon;
-                    //icon.setAttribute('class', 'placeIcon');
-                    //icon.setAttribute('className', 'placeIcon');
+                    labelTd.value = result.name.charAt(0) + i;
                     var name = document.createTextNode(result.name);
-                    //iconTd.appendChild(icon);
                     nameTd.appendChild(name);
-                    //tr.appendChild(iconTd);
+                    tr.appendChild(labelTd);
                     tr.appendChild(nameTd);
                     results.appendChild(tr);
-                }
+        }
+
+        function addPopularResult(result, i) {
+            var popular = document.getElementById("popular");
+            var tr = document.createElement('tr');
+            tr.onclick = function () { google.maps.event.trigger(popularMarkers[i], "click") };
+            var labelTd = document.createElement('td');
+            var nameTd = document.createElement('td');
+            labelTd.value = result.name.charAt(0) + i;
+            var name = document.createTextNode(result.name);
+            nameTd.appendChild(name);
+            tr.appendChild(labelTd);
+            tr.appendChild(nameTd);
+            popular.appendChild(tr);
+        }
 
                 function clearResults() {
                     var results = document.getElementById('results');
@@ -298,10 +301,6 @@
             } else {
                 document.getElementById('iw-phone-row').style.display = 'none';
             }
-
-            // Assign a five-star rating to the hotel, using a black star ('&#10029;')
-            // to indicate the rating the hotel has earned, and a white star ('&#10025;')
-            // for the rating points not achieved.
             if (place.rating) {
                 var ratingHtml = '';
                 for (var i = 0; i < 5; i++) {
@@ -316,22 +315,6 @@
             } else {
                 document.getElementById('iw-rating-row').style.display = 'none';
             }
-
-            //// The regexp isolates the first part of the URL (domain plus subdomain)
-            //// to give a short URL for displaying in the info window.
-            //if (place.url) {
-            //    var fullUrl = place.url;
-            //    var url = hostnameRegexp.exec(place.url);
-            //    if (url === null) {
-            //        url = 'http://' + place.url + '/';
-            //        fullUrl = url;
-            //    }
-            //    document.getElementById('iw-website-row').style.display = '';
-            //    document.getElementById('iw-website').textContent = url;
-            //} else {
-                document.getElementById('iw-website-row').style.display = 'none';
-
-            //}
         }
 
     </script>
