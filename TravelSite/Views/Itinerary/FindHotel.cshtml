@@ -25,34 +25,31 @@
          }
 
          .hotel-search {
-             -webkit-box-align: center;
-             -ms-flex-align: center;
-             align-items: center;
-             background: #fff;
-             display: -webkit-box;
-             display: -ms-flexbox;
-             display: flex;
-             left: 0;
-             position: absolute;
-             top: 0;
+             display: inline-flex;
+             margin-top: 50px;
              width: 440px;
-             z-index: 1;
-             margin-top:50px;
+             
+             
+             
          }
 
          #map {
-             margin-top: 40px;
+             margin-top: 10px;
+             display:block;
              width: 440px;
              height: 440px;
+             margin-left: auto;
+             margin-right: auto;
+             position: fixed;
          }
 
          #listing {
-             position: absolute;
+             position: fixed;
              width: 200px;
-             height: 470px;
+             height: 300px;
              overflow: auto;
-             left: 442px;
-             top: 0px;
+             left:auto;
+             top: 100px;
              cursor: pointer;
              overflow-x: hidden;
          }
@@ -119,21 +116,23 @@
     <body>
             @using (Html.BeginForm())
             {
-                <div class="hotel-search">
-                    <div id="findhotels">
-                        Find hotels in:
-                    </div>
-
-                    <div id="locationField">
-                        @Html.TextBoxFor(model => model.City, new { id = "autocomplete", placeholder = "Enter a destination" })
-                    </div>
-
-                    <div id="controls">
-                        <select id="country">
-                            <option value="us" selected>U.S.A.</option>
-                        </select>
-                    </div>
+        <center>
+            <div class="hotel-search">
+                <div id="findhotels">
+                    Find hotels in:
                 </div>
+
+                <div id="locationField">
+                    @Html.TextBoxFor(model => model.City, new { id = "autocomplete", placeholder = "Enter a destination" })
+                </div>
+
+                <div id="controls">
+                    <select id="country">
+                        <option value="us" selected>U.S.A.</option>
+                    </select>
+                </div>
+            </div>
+        </center>
 
                 <div id="map"></div>
 
@@ -178,28 +177,37 @@
                 </div>
                 //slider display code
                 <div>
-                    <div id="slider">
-                        <input class="bar" type="range" id="rangeinput" min="1" max="5" value="1" onchange="rangevalue.value=value" />
-                        <span class="highlight"></span>
-                        <output id="rangevalue">1</output>
-                    </div>
+                    <center>
+                        <div id="slider">
+                            <input class="bar" type="range" id="rangeinput" min="1" max="5" value="1" onchange="rangevalue.value=value" />
+                            <span class="highlight"></span>
+                            <output id="rangevalue">1</output>
+                        </div>
+                    </center>
                 </div>
                 //end slider display code
+                
                 <div class="form-group">
-                    @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
-                    </div>
+                    <center>
+                        @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                        </div>
+                    </center>
                 </div>
-
+                
+                
                 <div class="form-group">
-                    @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
-                    </div>
+                    <center>
+                        @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                        </div>
+                    </center>
                 </div>
+                
                 @Html.HiddenFor(model => model.HotelPlaceId, new { id = "hotelPlaceId" })
             }
             <script>
