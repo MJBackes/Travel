@@ -5,7 +5,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TravelSite.Models;
-using static TravelSite.Models._;
 
 namespace TravelSite.Controllers
 {
@@ -60,10 +59,13 @@ namespace TravelSite.Controllers
             //Get activity data from APIs to populate view.
             var userId = User.Identity.GetUserId();
             Traveler traveler = db.Travelers.Include("Interests").Include("CurrentItinerary").FirstOrDefault(t => t.ApplicationUserId == userId);
-            ViewBag.Popular = GetPopularActivities(traveler);
+            ViewBag.Activities = GetMatchingActivities(traveler);
+            ViewBag.Popular = GetTopFive(ViewBag.Popular);
+            ViewBag.HotelLat = traveler.CurrentItinerary.HotelLocationString.Split(',')[0];
+            ViewBag.HotelLng = traveler.CurrentItinerary.HotelLocationString.Split('.')[1];
             return View();
         }
-        private List<Business> GetPopularActivities(Traveler traveler)
+        private List<Business> GetMatchingActivities(Traveler traveler)
         {
             List<Business> output = new List<Business>();
             for (int i = 0; i < traveler.Interests.Count; i++)
@@ -72,7 +74,7 @@ namespace TravelSite.Controllers
                 foreach (Business b in businesses)
                     output.Add(b);
             }
-            return GetTopFive(output);
+            return output;
         }
         private List<Business> GetTopFive(List<Business> businesses)
         {
