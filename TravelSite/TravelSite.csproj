@@ -181,9 +181,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="GoogleAPIHandler.cs" />
-    <Compile Include="Migrations\201912131930114_ThirdMigration.cs" />
-    <Compile Include="Migrations\201912131930114_ThirdMigration.Designer.cs">
-      <DependentUpon>201912131930114_ThirdMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201912131951501_ThirdMigration.cs" />
+    <Compile Include="Migrations\201912131951501_ThirdMigration.Designer.cs">
+      <DependentUpon>201912131951501_ThirdMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\NearByResponse.cs" />
@@ -218,6 +218,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\chris-lawton-o0l-M8W_7wA-unsplash.jpg" />
+    <Content Include="Images\emily-webster-CNGG7-LWIk4-unsplash.jpg" />
+    <Content Include="Images\erwan-hesry-Q34YB7yjAxA-unsplash.jpg" />
+    <Content Include="Images\luca-bravo-O453M2Liufs-unsplash.jpg" />
+    <Content Include="Images\nils-nedel-ONpGBpns3cs-unsplash.jpg" />
+    <Content Include="Images\nitish-meena-1LOKfF930E4-unsplash.jpg" />
+    <Content Include="Images\sean-o-KMn4VEeEPR8-unsplash.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -277,6 +284,8 @@
     <Content Include="Views\Review\Edit.cshtml" />
     <Content Include="Views\Review\Delete.cshtml" />
     <Content Include="Views\Review\Index.cshtml" />
+    <Content Include="Views\Traveler\TravelerItineraries.cshtml" />
+    <Content Include="Views\Itinerary\Itinerary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -295,8 +304,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201912131930114_ThirdMigration.resx">
-      <DependentUpon>201912131930114_ThirdMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201912131951501_ThirdMigration.resx">
+      <DependentUpon>201912131951501_ThirdMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
