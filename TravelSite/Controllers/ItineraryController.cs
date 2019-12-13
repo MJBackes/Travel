@@ -82,31 +82,20 @@ namespace TravelSite.Controllers
             if (businesses.Count <= 5)
                 return businesses;
             List<Business> output = new List<Business>();
-            Business TempLargest = null;
+            businesses = businesses.OrderByDescending(b => b.review_count).ToList();
             for (int i = 0; i < 5; i++) {
-                for(int j = 0; j < businesses.Count; j++)
-                {
-                    if (j == 0)
-                    {
-                        TempLargest = businesses[j];
-                        continue;
-                    }
-                    if (businesses[j].review_count > TempLargest.review_count && output.Where(b => b.id == businesses[j].id).ToList().Count == 0)
-                        TempLargest = businesses[j];
+                output.Add(businesses[i]);
                 }
-                output.Add(TempLargest);
-                businesses.Remove(TempLargest);
-            }
             return output;
         }
         [HttpPost]
         public ActionResult GetActivities(Activity activity)
         {
-            if (db.Activities.Where(a => a.Name == activity.Name && a.Lat == activity.Lat && a.Lng == activity.Lng).Count() == 0)
+            if (db.Activities.Where(a => a.Name == activity.Name && a.Address == activity.Address).Count() == 0)
             {
-
+                db.Activities.Add(activity);
             }
-                return View();
+            return View();
         }
 
         // GET: AddActivity
