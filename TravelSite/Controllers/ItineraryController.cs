@@ -98,15 +98,17 @@ namespace TravelSite.Controllers
             return View();
         }
 
-        // GET: AddActivity
-        [HttpPost]
-        public ActionResult AddActivity (Activity activity)
+        //POST: AddActivity
+       [HttpPost]
+        public ActionResult AddActivity(Activity activity)
         {
             var userId = User.Identity.GetUserId();
             activity.Id = Guid.NewGuid();
-            db.Itineraries..Add(activity);
+            Traveler traveler = db.Travelers.Include("CurrentItinerary").FirstOrDefault(t => t.ApplicationUserId == userId);
+            Itinerary itinerary = traveler.CurrentItinerary;
+            itinerary.Activities.Add(activity);
             db.SaveChanges();
-            return View("Index");
+            return View("Itinerary", "Itinerary");
         }
 
 

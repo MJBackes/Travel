@@ -181,15 +181,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="GoogleAPIHandler.cs" />
-<<<<<<< HEAD
-    <Compile Include="Migrations\201912131951501_ThirdMigration.cs" />
-    <Compile Include="Migrations\201912131951501_ThirdMigration.Designer.cs">
-      <DependentUpon>201912131951501_ThirdMigration.cs</DependentUpon>
-=======
-    <Compile Include="Migrations\201912132030045_ThirdMigration.cs" />
-    <Compile Include="Migrations\201912132030045_ThirdMigration.Designer.cs">
-      <DependentUpon>201912132030045_ThirdMigration.cs</DependentUpon>
->>>>>>> 265781860ad710c0d1d622726e64ffb6180605f0
+    <Compile Include="Migrations\201912132048506_add-migration ThirdMigration.cs" />
+    <Compile Include="Migrations\201912132048506_add-migration ThirdMigration.Designer.cs">
+      <DependentUpon>201912132048506_add-migration ThirdMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\NearByResponse.cs" />
@@ -310,13 +304,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <EmbeddedResource Include="Migrations\201912131951501_ThirdMigration.resx">
-      <DependentUpon>201912131951501_ThirdMigration.cs</DependentUpon>
-=======
-    <EmbeddedResource Include="Migrations\201912132030045_ThirdMigration.resx">
-      <DependentUpon>201912132030045_ThirdMigration.cs</DependentUpon>
->>>>>>> 265781860ad710c0d1d622726e64ffb6180605f0
+    <EmbeddedResource Include="Migrations\201912132048506_add-migration ThirdMigration.resx">
+      <DependentUpon>201912132048506_add-migration ThirdMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
