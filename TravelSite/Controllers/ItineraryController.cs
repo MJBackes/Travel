@@ -100,11 +100,13 @@ namespace TravelSite.Controllers
             return output;
         }
         [HttpPost]
-        public ActionResult GetActivities(List<NearByResponse> activities)
+        public ActionResult GetActivities(Activity activity)
         {
-            //To do:
-            //Logic to store activities chosen in view to DB.
-            return View();
+            if (db.Activities.Where(a => a.Name == activity.Name && a.Lat == activity.Lat && a.Lng == activity.Lng).Count() == 0)
+            {
+
+            }
+                return View();
         }
         // GET: Itinerary/Edit/5
         public ActionResult Edit(int id)
