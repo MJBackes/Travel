@@ -60,9 +60,10 @@ namespace TravelSite.Controllers
             var userId = User.Identity.GetUserId();
             Traveler traveler = db.Travelers.Include("Interests").Include("CurrentItinerary").FirstOrDefault(t => t.ApplicationUserId == userId);
             ViewBag.Activities = GetMatchingActivities(traveler);
-            ViewBag.Popular = GetTopFive(ViewBag.Popular);
-            ViewBag.HotelLat = traveler.CurrentItinerary.HotelLocationString.Split(',')[0];
-            ViewBag.HotelLng = traveler.CurrentItinerary.HotelLocationString.Split('.')[1];
+            ViewBag.Popular = GetTopFive(ViewBag.Activities).ToArray();
+            ViewBag.Activities = ViewBag.Activities.ToArray();
+            ViewBag.HotelLat = decimal.Parse(traveler.CurrentItinerary.HotelLocationString.Split(',')[0]);
+            ViewBag.HotelLng = decimal.Parse(traveler.CurrentItinerary.HotelLocationString.Split(',')[1]);
             return View();
         }
         private List<Business> GetMatchingActivities(Traveler traveler)
