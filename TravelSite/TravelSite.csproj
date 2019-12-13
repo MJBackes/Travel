@@ -186,7 +186,6 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\YelpBusinessResponse.cs" />
-    <Compile Include="Models\NearByResponse.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Geometry.cs" />
