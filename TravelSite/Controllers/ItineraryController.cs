@@ -97,6 +97,19 @@ namespace TravelSite.Controllers
             }
             return View();
         }
+
+        // GET: AddActivity
+        [HttpPost]
+        public ActionResult AddActivity (Activity activity)
+        {
+            var userId = User.Identity.GetUserId();
+            activity.Id = Guid.NewGuid();
+            db.Itineraries..Add(activity);
+            db.SaveChanges();
+            return View("Index");
+        }
+
+
         // GET: Itinerary/Edit/5
         public ActionResult Edit(int id)
         {
