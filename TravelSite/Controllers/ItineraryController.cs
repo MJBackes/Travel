@@ -104,7 +104,7 @@ namespace TravelSite.Controllers
         {
             var userId = User.Identity.GetUserId();
             activity.Id = Guid.NewGuid();
-            db.Itineraries..Add(activity);
+            //db.Itineraries..Add(activity);
             db.SaveChanges();
             return View("Index");
         }
