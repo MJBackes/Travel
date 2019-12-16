@@ -100,6 +100,7 @@ namespace TravelSite.Controllers
                 DBActivity = db.Activities.Find(activity.Id);
             }
             ViewBag.Activity = DBActivity;
+            ViewBag.Reviews = db.Reviews.Include("Traveler").Where(r => r.ActivityId == DBActivity.Id).ToList();
             return View("AddActivity");
         }
         //[HttpGet]
@@ -114,12 +115,14 @@ namespace TravelSite.Controllers
         public ActionResult AddActivity(Activity activity)
         {
             var userId = User.Identity.GetUserId();
-            activity.Id = Guid.NewGuid();
             Traveler traveler = db.Travelers.Include("CurrentItinerary").FirstOrDefault(t => t.ApplicationUserId == userId);
             Itinerary itinerary = traveler.CurrentItinerary;
-            itinerary.Activities.Add(activity);
-            db.SaveChanges();
-            return View("Itinerary", "Itinerary");
+            if (itinerary.Activities.Where(a => a.Id == activity.Id).Count() == 0)
+            {
+                itinerary.Activities.Add(activity);
+                db.SaveChanges();
+            }
+            return View("GetActivities");
         }
 
 

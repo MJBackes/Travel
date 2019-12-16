@@ -18,26 +18,51 @@
         <th>
             @Html.DisplayNameFor(model => model.Phone)
         </th>
-
         <th></th>
     </tr>
     <tr>
         <td>
-            @Model.Address;
+            @ViewBag.Activity.Address
         </td>
         <td>
-            @Model.Phone;
+            @ViewBag.Activity.Phone
         </td>
         <td>
             @using (Html.BeginForm())
             {
+                @Model.Id= ViewBag.Activity.Id;
                 @Html.HiddenFor(m => m.Id)
                 <input type="submit" value="Confirm" class="btn btn-default" />
             }
         </td>
     </tr>
+</table>
+<table class="table-striped">
+        <tr>
+            <th>
+                Rating
+            </th>
+            <th>
+                Traveler Name
+            </th>
+            <th>
+                Comment
+            </th>
+        </tr>
+    @foreach(TravelSite.Models.Review review in ViewBag.Reviews)
+    {
+        <tr>
+            <td>
+                @review.Rating
+            </td>
+            <td>
+                @review.Traveler.FirstName
+            </td>
+            <td>
+                @review.Comment
+            </td>
+        </tr>
     }
-
 </table>
 @* final confirmation to add to itinerary,
 
