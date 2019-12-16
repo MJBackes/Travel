@@ -50,7 +50,7 @@ namespace TravelSite.Controllers
                 {
                     traveler.Interests.Remove(db.Interests.FirstOrDefault(i => i.Name == "Park"));
                 }
-                ViewBag.Forecast = forecast;
+                ViewBag.AverageTemp = GetAverageTemp(forecast);
             }
             ViewBag.Activities = GetMatchingActivities(traveler);
             ViewBag.Popular = GetTopN(ViewBag.Activities, 5).ToArray();
