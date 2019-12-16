@@ -165,6 +165,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccuWeatherAPIHandler.cs" />
     <Compile Include="APIKey.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -181,11 +182,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="GoogleAPIHandler.cs" />
-    <Compile Include="Migrations\201912132030045_ThirdMigration.cs" />
-    <Compile Include="Migrations\201912132030045_ThirdMigration.Designer.cs">
-      <DependentUpon>201912132030045_ThirdMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201912132154264_FourthMigration.cs" />
+    <Compile Include="Migrations\201912132154264_FourthMigration.Designer.cs">
+      <DependentUpon>201912132154264_FourthMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccuWeatherLocationResponse.cs" />
     <Compile Include="Models\NearByResponse.cs" />
     <Compile Include="Models\YelpBusinessResponse.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -304,8 +306,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201912132030045_ThirdMigration.resx">
-      <DependentUpon>201912132030045_ThirdMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201912132154264_FourthMigration.resx">
+      <DependentUpon>201912132154264_FourthMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
