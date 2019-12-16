@@ -95,8 +95,15 @@ namespace TravelSite.Controllers
             {
                 db.Activities.Add(activity);
             }
-            return View();
+            ViewBag.Activity = activity;
+            return View("AddActivity");
         }
+        //[HttpGet]
+        //public ActionResult AddActivity()
+        //{
+        //    return View();
+        //}
+
 
         //POST: AddActivity
        [HttpPost]

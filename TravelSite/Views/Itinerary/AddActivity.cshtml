@@ -1,0 +1,44 @@
+﻿@model TravelSite.Models.Activity
+@{
+    ViewBag.Title = "AddActivity";
+}
+
+<p>
+    <h2>
+        @Model.Name;
+    </h2>
+</p>
+
+@*display details and reviews*@
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+            @Model.Address;
+        </td>
+        <td>
+            @Model.Phone;
+        </td>
+        <td>
+            @using (Html.BeginForm())
+            {
+                @Html.HiddenFor(m => m.Id)
+                <input type="submit" value="Confirm" class="btn btn-default" />
+            }
+        </td>
+    </tr>
+    }
+
+</table>
+@* final confirmation to add to itinerary,
+
+    post method with catch for cancel?*@
