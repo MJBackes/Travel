@@ -91,11 +91,15 @@ namespace TravelSite.Controllers
         [HttpPost]
         public ActionResult GetActivities(Activity activity)
         {
-            if (db.Activities.Where(a => a.Name == activity.Name && a.Address == activity.Address).Count() == 0)
+            Activity DBActivity = db.Activities.FirstOrDefault(a => a.Name == activity.Name && ((a.Address == activity.Address) || (a.Lat == activity.Lat && a.Lng == activity.Lng)));
+            if (DBActivity == null)
             {
+                activity.Id = Guid.NewGuid();
                 db.Activities.Add(activity);
+                db.SaveChanges();
+                DBActivity = db.Activities.Find(activity.Id);
             }
-            ViewBag.Activity = activity;
+            ViewBag.Activity = DBActivity;
             return View("AddActivity");
         }
 
