@@ -11,6 +11,7 @@ namespace TravelSite.Controllers
     public class ItineraryController : Controller
     {
         ApplicationDbContext db;
+        private const int MAXFORECAST = 5;
         public ItineraryController()
         {
             db = new ApplicationDbContext();
@@ -38,12 +39,38 @@ namespace TravelSite.Controllers
                 traveler.CurrentItineraryID = id;
                 traveler.CurrentItinerary = db.Itineraries.Find(id);
             }
+            if((traveler.CurrentItinerary.StartDate - DateTime.Today).TotalDays < MAXFORECAST)
+            {
+                string state = traveler.CurrentItinerary.City.Split(' ')[1].Split(',')[0];
+                string city = traveler.CurrentItinerary.City.Split(',')[0];
+                List<AccuWeatherLocationResponse> responses = AccuWeatherAPIHandler.GetLocation(state, city).Result;
+                string key = responses[0].Key;
+                AccuWeatherForecast forecast = AccuWeatherAPIHandler.GetForecast(key).Result;
+                if(forecast.Headline.Text.ToLower().Contains("rain") || forecast.Headline.Text.ToLower().Contains("snow") || GetAverageTemp(forecast) < 40)
+                {
+                    traveler.Interests.Remove(db.Interests.FirstOrDefault(i => i.Name == "Park"));
+                }
+                ViewBag.Forecast = forecast;
+            }
             ViewBag.Activities = GetMatchingActivities(traveler);
-            ViewBag.Popular = GetTopFive(ViewBag.Activities).ToArray();
+            ViewBag.Popular = GetTopN(ViewBag.Activities, 5).ToArray();
             ViewBag.Activities = ViewBag.Activities.ToArray();
             ViewBag.HotelLat = decimal.Parse(traveler.CurrentItinerary.HotelLocationString.Split(',')[0]);
             ViewBag.HotelLng = decimal.Parse(traveler.CurrentItinerary.HotelLocationString.Split(',')[1]);
             return View();
+        }
+        private double GetAverageTemp(AccuWeatherForecast forecast)
+        {
+            double output = 0;
+            foreach(Dailyforecast daily in forecast.DailyForecasts)
+            {
+                output += GetDailyAverage(daily);
+            }
+            return output / forecast.DailyForecasts.Length;
+        }
+        private double GetDailyAverage(Dailyforecast dailyforecast)
+        {
+            return (dailyforecast.Temperature.Minimum.Value + dailyforecast.Temperature.Maximum.Value) / 2;
         }
         private List<Business> GetMatchingActivities(Traveler traveler)
         {
@@ -56,16 +83,16 @@ namespace TravelSite.Controllers
             }
             return output;
         }
-        private List<Business> GetTopFive(List<Business> businesses)
+        private List<Business> GetTopN(List<Business> businesses, int N)
         {
-            if (businesses.Count <= 5)
+            if (businesses.Count <= N)
                 return businesses;
             List<Business> output = new List<Business>();
-            businesses = businesses.OrderByDescending(b => b.review_count).ToList();
-            for (int i = 0; i < 5; i++) {
-                output.Add(businesses[i]);
-                }
-            return output;
+            //businesses = businesses.OrderByDescending(b => b.review_count).ToList();
+            //for (int i = 0; i < 5; i++) {
+            //    output.Add(businesses[i]);
+            //    }
+            return businesses.OrderByDescending(b => b.review_count).Take(N).ToList();
         }
         [HttpPost]
         public ActionResult GetActivities(Activity activity)

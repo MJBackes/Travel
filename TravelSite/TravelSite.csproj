@@ -187,6 +187,7 @@
       <DependentUpon>201912161658152_SeventhMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccuWeatherForecast.cs" />
     <Compile Include="Models\AccuWeatherLocationResponse.cs" />
     <Compile Include="Models\ItineraryActivity.cs" />
     <Compile Include="Models\NearByResponse.cs" />
