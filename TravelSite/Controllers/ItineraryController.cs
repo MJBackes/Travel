@@ -41,16 +41,19 @@ namespace TravelSite.Controllers
             }
             if((traveler.CurrentItinerary.StartDate - DateTime.Today).TotalDays < MAXFORECAST)
             {
-                string state = traveler.CurrentItinerary.City.Split(' ')[1].Split(',')[0];
+                string state = traveler.CurrentItinerary.City.Split(',')[1].Trim().Split(',')[0];
                 string city = traveler.CurrentItinerary.City.Split(',')[0];
                 List<AccuWeatherLocationResponse> responses = AccuWeatherAPIHandler.GetLocation(state, city).Result;
-                string key = responses[0].Key;
-                AccuWeatherForecast forecast = AccuWeatherAPIHandler.GetForecast(key).Result;
-                if(forecast.Headline.Text.ToLower().Contains("rain") || forecast.Headline.Text.ToLower().Contains("snow") || GetAverageTemp(forecast) < 40)
+                if (responses.Count > 0)
                 {
-                    traveler.Interests.Remove(db.Interests.FirstOrDefault(i => i.Name == "Park"));
+                    string key = responses[0].Key;
+                    AccuWeatherForecast forecast = AccuWeatherAPIHandler.GetForecast(key).Result;
+                    if (forecast.Headline.Text.ToLower().Contains("rain") || forecast.Headline.Text.ToLower().Contains("snow") || GetAverageTemp(forecast) < 40)
+                    {
+                        traveler.Interests.Remove(db.Interests.FirstOrDefault(i => i.Name == "Park"));
+                    }
+                    ViewBag.AverageTemp = GetAverageTemp(forecast);
                 }
-                ViewBag.AverageTemp = GetAverageTemp(forecast);
             }
             ViewBag.Activities = GetMatchingActivities(traveler);
             ViewBag.Popular = GetTopN(ViewBag.Activities, 5).ToArray();
@@ -128,7 +131,7 @@ namespace TravelSite.Controllers
             Itinerary itinerary = traveler.CurrentItinerary;
             if (db.ItineraryActivities.Where(a => a.Id == activity.Id).Count() == 0)
             {
-                db.ItineraryActivities.Add(new ItineraryActivity { Itinerary = itinerary, Activity = ActivityFromDB});
+                db.ItineraryActivities.Add(new ItineraryActivity {Id= Guid.NewGuid(), Itinerary = itinerary, Activity = ActivityFromDB});
                 db.SaveChanges();
             }
             return RedirectToAction("GetActivities");
@@ -191,7 +194,7 @@ namespace TravelSite.Controllers
                 var userId = User.Identity.GetUserId();
                 Traveler traveler = db.Travelers.FirstOrDefault(t => t.ApplicationUserId == userId);
                 itinerary.Id = Guid.NewGuid();
-                traveler.Itineraries.Add(itinerary);
+                db.TravelerItineraries.Add(new TravelerItinerary() { Id = Guid.NewGuid(), Itinerary = itinerary, Traveler = traveler });
                 traveler.CurrentItineraryID = itinerary.Id;
                 db.SaveChanges();
                 if (itinerary.StartDate.Ticks - itinerary.EndDate.Ticks >= 0)
