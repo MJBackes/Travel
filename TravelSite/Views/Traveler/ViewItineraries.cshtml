@@ -1,0 +1,44 @@
+﻿@model List<TravelSite.Models.Itinerary>
+
+@{
+    ViewBag.Title = "ViewItineraries";
+}
+
+<h2>Your Itineraries:</h2>
+
+<p>
+    @Html.ActionLink("Create New Itinerary", "FindHotel", "Itinerary")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            City
+        </th>
+        <th>
+            Start Date
+        </th>
+        <th>
+            End Date
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.City, "Itinerary", "Itinerary", new { id = item.Id}, null)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "GetActivities", "Itinerary" , new { id=item.Id }, null) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

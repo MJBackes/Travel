@@ -5,7 +5,7 @@
 
 <p>
     <h2>
-        @Model.Name;
+        @ViewBag.Activity.Name
     </h2>
 </p>
 
@@ -30,8 +30,12 @@
         <td>
             @using (Html.BeginForm())
             {
-                @Model.Id= ViewBag.Activity.Id;
-                @Html.HiddenFor(m => m.Id)
+                @Html.HiddenFor(m => m.Id, new { @Value = ViewBag.Activity.Id})
+                @Html.HiddenFor(m => m.Name, new { @Value = ViewBag.Activity.Name})
+                @Html.HiddenFor(m => m.Phone, new { @Value = ViewBag.Activity.Phone})
+                @Html.HiddenFor(m => m.Address, new { @Value = ViewBag.Activity.Address})
+                @Html.HiddenFor(m => m.Lat, new { @Value = ViewBag.Activity.Lat})
+                @Html.HiddenFor(m => m.Lng, new { @Value = ViewBag.Activity.Lng})
                 <input type="submit" value="Confirm" class="btn btn-default" />
             }
         </td>
@@ -63,6 +67,12 @@
             </td>
         </tr>
     }
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Html.ActionLink("LEAVE REVIEW", "Create", "Review", new { @class = "btn btn-warning",  id=ViewBag.Activity.Id}, null)</td>
+    </tr>
 </table>
 @* final confirmation to add to itinerary,
 

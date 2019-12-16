@@ -30,9 +30,11 @@ namespace TravelSite.Controllers
         //}
 
         // GET: Review/Create
-        public ActionResult Create()
+        public ActionResult Create(Guid? id)
         {
-            return View();
+            var userId = User.Identity.GetUserId();
+            Traveler traveler = db.Travelers.FirstOrDefault(t => t.ApplicationUserId == userId);
+            return View(new Review { ActivityId = (Guid)id, TravelerId = traveler.Id });
         }
 
         // POST: Review/Create
@@ -47,11 +49,11 @@ namespace TravelSite.Controllers
                 //add view to specific activity\
                 db.Reviews.Add(review);
                 db.SaveChanges();
-                return View("Index");
+                return RedirectToAction("AddActivity", "Itinerary");
             }
             catch
             {
-                return View("Index");
+                return RedirectToAction("AddActivity", "Itinerary");
             }
         }
 

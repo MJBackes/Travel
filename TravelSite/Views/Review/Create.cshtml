@@ -16,8 +16,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Rating, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.Rating, new SelectList(new double[] { 1, 2, 3, 4, 5}), new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
 
@@ -35,6 +34,8 @@
             </div>
         </div>
     </div>
+    @Html.HiddenFor( m => m.ActivityId)
+    @Html.HiddenFor(m => m.TravelerId)
 }
 
 <div>

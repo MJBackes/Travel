@@ -4,7 +4,7 @@
     ViewBag.Title = "Itinerary";
 }
 
-<h2>Itinerary for @Html.DisplayNameFor(model => model.City)</h2>
+<h2>Itinerary for @Html.DisplayFor(model => model.City)</h2>
 <hr />
 <div>
     <dl class="dl-horizontal">
@@ -14,22 +14,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.City)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.State)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.State)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeSpan)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TimeSpan)
         </dd>
 
         <dt>
@@ -48,16 +32,35 @@
             @Html.DisplayFor(model => model.EndDate)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.HotelLocationString)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HotelLocationString)
-        </dd>
-
     </dl>
 </div>
+<table class="table-striped">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+            Phone
+        </th>
+    </tr>
+    @foreach(TravelSite.Models.ItineraryActivity activity in ViewBag.Activities)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => activity.Activity.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => activity.Activity.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => activity.Activity.Phone)
+            </td>
+        </tr>
+    }
+</table>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")

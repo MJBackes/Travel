@@ -20,7 +20,12 @@ namespace TravelSite.Controllers
         {
             return View();
         }
-
+        [HttpGet]
+        public ActionResult ViewItineraries()
+        {
+            var userId = User.Identity.GetUserId();
+            return View(db.Travelers.Include("Itineraries").FirstOrDefault(t => t.ApplicationUserId == userId).Itineraries.ToList());
+        }
         // GET: Traveler/Create
         public ActionResult Create()
         {

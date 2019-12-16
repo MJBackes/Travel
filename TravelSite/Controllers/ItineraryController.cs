@@ -22,43 +22,22 @@ namespace TravelSite.Controllers
         }
 
         // GET: Itinerary/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Itinerary(Guid? id)
         {
-            return View();
+            ViewBag.Activities = db.ItineraryActivities.Include("Activity").Where(i => i.ItineraryId == id).ToList();
+            return View(db.Itineraries.FirstOrDefault(i => i.Id == id));
         }
 
-        // GET: Itinerary/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Itinerary/Create
-        [HttpPost]
-        public ActionResult Create(Itinerary itinerary)
-        {
-            try
-            {
-                var userId = User.Identity.GetUserId();
-                itinerary.Travelers.Add(db.Travelers.FirstOrDefault(t => t.ApplicationUserId == userId));
-                itinerary.Id = Guid.NewGuid();
-                itinerary.TimeSpan = itinerary.EndDate - itinerary.StartDate;
-                if (itinerary.TimeSpan.TotalDays < 0)
-                    return View();
-                return View("FindHotel", itinerary);
-            }
-            catch
-            {
-                return View();
-            }
-        }
         [HttpGet]
-        public ActionResult GetActivities()
+        public ActionResult GetActivities(Guid? id)
         {
-            //To do:
-            //Get activity data from APIs to populate view.
             var userId = User.Identity.GetUserId();
             Traveler traveler = db.Travelers.Include("Interests").Include("CurrentItinerary").FirstOrDefault(t => t.ApplicationUserId == userId);
+            if (id != null && id != traveler.CurrentItineraryID)
+            {
+                traveler.CurrentItineraryID = id;
+                traveler.CurrentItinerary = db.Itineraries.Find(id);
+            }
             ViewBag.Activities = GetMatchingActivities(traveler);
             ViewBag.Popular = GetTopFive(ViewBag.Activities).ToArray();
             ViewBag.Activities = ViewBag.Activities.ToArray();
@@ -98,31 +77,34 @@ namespace TravelSite.Controllers
                 db.Activities.Add(activity);
                 db.SaveChanges();
                 DBActivity = db.Activities.Find(activity.Id);
+                DBActivity = activity;
             }
-            ViewBag.Activity = DBActivity;
-            ViewBag.Reviews = db.Reviews.Include("Traveler").Where(r => r.ActivityId == DBActivity.Id).ToList();
-            return View("AddActivity");
+            TempData["Activity"] = DBActivity;
+            TempData["Reviews"] = db.Reviews.Include("Traveler").Where(r => r.ActivityId == DBActivity.Id).ToList();
+            return RedirectToAction("AddActivity");
         }
-        //[HttpGet]
-        //public ActionResult AddActivity()
-        //{
-        //    return View();
-        //}
-
-
         //POST: AddActivity
+        [HttpGet]
+        public ActionResult AddActivity()
+        {
+            ViewBag.Activity = TempData["Activity"];
+            ViewBag.Reviews = TempData["Reviews"];
+            TempData.Keep();
+            return View();
+        }
        [HttpPost]
         public ActionResult AddActivity(Activity activity)
         {
+            Activity ActivityFromDB = db.Activities.Find(activity.Id);
             var userId = User.Identity.GetUserId();
             Traveler traveler = db.Travelers.Include("CurrentItinerary").FirstOrDefault(t => t.ApplicationUserId == userId);
             Itinerary itinerary = traveler.CurrentItinerary;
-            if (itinerary.Activities.Where(a => a.Id == activity.Id).Count() == 0)
+            if (db.ItineraryActivities.Where(a => a.Id == activity.Id).Count() == 0)
             {
-                itinerary.Activities.Add(activity);
+                db.ItineraryActivities.Add(new ItineraryActivity { Itinerary = itinerary, Activity = ActivityFromDB});
                 db.SaveChanges();
             }
-            return View("GetActivities");
+            return RedirectToAction("GetActivities");
         }
 
 

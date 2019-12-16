@@ -25,6 +25,8 @@ namespace TravelSite.Models
         public DbSet<Activity> Activities { get; set; }
         public DbSet<Interest> Interests { get; set; }
         public DbSet<Itinerary> Itineraries { get; set; }
+        public DbSet<ItineraryActivity> ItineraryActivities { get; set; }
+        public DbSet<TravelerItinerary> TravelerItineraries { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
