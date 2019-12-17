@@ -3,7 +3,7 @@ namespace TravelSite.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class FourthMigration : DbMigration
+    public partial class SeventhMigration : DbMigration
     {
         public override void Up()
         {
@@ -17,14 +17,8 @@ namespace TravelSite.Migrations
                         Lng = c.Decimal(nullable: false, precision: 18, scale: 2),
                         Phone = c.String(),
                         Address = c.String(),
-                        Interest_Id = c.Int(),
-                        Itinerary_Id = c.Guid(),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Interests", t => t.Interest_Id)
-                .ForeignKey("dbo.Itineraries", t => t.Itinerary_Id)
-                .Index(t => t.Interest_Id)
-                .Index(t => t.Itinerary_Id);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.Interests",
@@ -45,15 +39,12 @@ namespace TravelSite.Migrations
                         LastName = c.String(),
                         CurrentItineraryID = c.Guid(),
                         ApplicationUserId = c.String(maxLength: 128),
-                        Itinerary_Id = c.Guid(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUserId)
-                .ForeignKey("dbo.Itineraries", t => t.Itinerary_Id)
                 .ForeignKey("dbo.Itineraries", t => t.CurrentItineraryID)
                 .Index(t => t.CurrentItineraryID)
-                .Index(t => t.ApplicationUserId)
-                .Index(t => t.Itinerary_Id);
+                .Index(t => t.ApplicationUserId);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -120,7 +111,7 @@ namespace TravelSite.Migrations
                         Id = c.Guid(nullable: false),
                         City = c.String(),
                         State = c.String(),
-                        TimeSpan = c.Time(nullable: false, precision: 7),
+                        HotelName = c.String(),
                         StartDate = c.DateTime(nullable: false),
                         EndDate = c.DateTime(nullable: false),
                         HotelLocationString = c.String(),
@@ -129,6 +120,20 @@ namespace TravelSite.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Travelers", t => t.Traveler_Id)
                 .Index(t => t.Traveler_Id);
+            
+            CreateTable(
+                "dbo.ItineraryActivities",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        ItineraryId = c.Guid(nullable: false),
+                        ActivityId = c.Guid(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Activities", t => t.ActivityId, cascadeDelete: true)
+                .ForeignKey("dbo.Itineraries", t => t.ItineraryId, cascadeDelete: true)
+                .Index(t => t.ItineraryId)
+                .Index(t => t.ActivityId);
             
             CreateTable(
                 "dbo.Reviews",
@@ -157,6 +162,20 @@ namespace TravelSite.Migrations
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
             
             CreateTable(
+                "dbo.TravelerItineraries",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        ItineraryId = c.Guid(nullable: false),
+                        TravelerId = c.Guid(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Itineraries", t => t.ItineraryId, cascadeDelete: true)
+                .ForeignKey("dbo.Travelers", t => t.TravelerId, cascadeDelete: true)
+                .Index(t => t.ItineraryId)
+                .Index(t => t.TravelerId);
+            
+            CreateTable(
                 "dbo.TravelerInterests",
                 c => new
                     {
@@ -173,39 +192,43 @@ namespace TravelSite.Migrations
         
         public override void Down()
         {
+            DropForeignKey("dbo.TravelerItineraries", "TravelerId", "dbo.Travelers");
+            DropForeignKey("dbo.TravelerItineraries", "ItineraryId", "dbo.Itineraries");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.Reviews", "TravelerId", "dbo.Travelers");
             DropForeignKey("dbo.Reviews", "ActivityId", "dbo.Activities");
+            DropForeignKey("dbo.ItineraryActivities", "ItineraryId", "dbo.Itineraries");
+            DropForeignKey("dbo.ItineraryActivities", "ActivityId", "dbo.Activities");
             DropForeignKey("dbo.Itineraries", "Traveler_Id", "dbo.Travelers");
             DropForeignKey("dbo.TravelerInterests", "Interest_Id", "dbo.Interests");
             DropForeignKey("dbo.TravelerInterests", "Traveler_Id", "dbo.Travelers");
             DropForeignKey("dbo.Travelers", "CurrentItineraryID", "dbo.Itineraries");
-            DropForeignKey("dbo.Travelers", "Itinerary_Id", "dbo.Itineraries");
-            DropForeignKey("dbo.Activities", "Itinerary_Id", "dbo.Itineraries");
             DropForeignKey("dbo.Travelers", "ApplicationUserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Activities", "Interest_Id", "dbo.Interests");
             DropIndex("dbo.TravelerInterests", new[] { "Interest_Id" });
             DropIndex("dbo.TravelerInterests", new[] { "Traveler_Id" });
+            DropIndex("dbo.TravelerItineraries", new[] { "TravelerId" });
+            DropIndex("dbo.TravelerItineraries", new[] { "ItineraryId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.Reviews", new[] { "ActivityId" });
             DropIndex("dbo.Reviews", new[] { "TravelerId" });
+            DropIndex("dbo.ItineraryActivities", new[] { "ActivityId" });
+            DropIndex("dbo.ItineraryActivities", new[] { "ItineraryId" });
             DropIndex("dbo.Itineraries", new[] { "Traveler_Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.Travelers", new[] { "Itinerary_Id" });
             DropIndex("dbo.Travelers", new[] { "ApplicationUserId" });
             DropIndex("dbo.Travelers", new[] { "CurrentItineraryID" });
-            DropIndex("dbo.Activities", new[] { "Itinerary_Id" });
-            DropIndex("dbo.Activities", new[] { "Interest_Id" });
             DropTable("dbo.TravelerInterests");
+            DropTable("dbo.TravelerItineraries");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.Reviews");
+            DropTable("dbo.ItineraryActivities");
             DropTable("dbo.Itineraries");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");

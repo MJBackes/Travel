@@ -6,15 +6,9 @@
 <h2>Get Activites</h2>
 <style>
 
-    /* Always set the map height explicitly to define the size of the div
-        * element that contains the map. */
     #map {
         height: 100%;
     }
-
-    /*#map-canvas { height: 70%; width :50%; margin-left:auto; margin-right:auto;}*/
-
-    /* Optional: Makes the sample page fill the window. */
     html, body {
         height: 100%;
         margin: 0;
@@ -92,6 +86,7 @@
 
 <script type="text/javascript" src="~/Scripts/jquery-3.3.1.js"></script>
 <body>
+<<<<<<< HEAD
     <div class="row">
          <div id="popularList"class="col-md-3">
              <table id="popularTable">
@@ -145,7 +140,7 @@
                     <span class="highlight"></span>
                     <output id="rangevalue">15</output><span>km</span>
             @using (Html.BeginForm())
-                {
+            {
                 <div class="container">
                      <div class="row">
                         <div id="popularList" class="col-md-3">
@@ -161,6 +156,27 @@
                             <table id="resultsTable">
                                 <thead>Powered by Yelp</thead>
                                 <tbody id="results"></tbody>
+                        </div>
+                     </div>
+                </div>
+            }
+        @using (Html.BeginForm())
+        {
+          <div class="container">
+                <div class="row">
+                     <div id="popularList" class="col-md-3">
+                         <table id="popularTable">
+                             <thead>Most Popular Places(Yelp)</thead>
+                             <tbody id="popular"></tbody>
+                         </table>
+                     </div>
+
+                    <div id="map" class="col-md-6"></div>
+
+                    <div id="listing" class="col-md-3">
+                        <table id="resultsTable">
+                            <thead>Powered by Yelp</thead>
+                            <tbody id="results"></tbody>
                         </table>
                         </div>
                     </div>
@@ -219,7 +235,6 @@
             @Html.HiddenFor(model => model.Phone, new { id = "activityPhone"})
             @Html.HiddenFor(model => model.Lat, new { id = "activityLat"})
             @Html.HiddenFor(model => model.Lng, new { id = "activityLng"})
-            
         }
     <script>
         var map, bounds, infoWindow;
@@ -281,7 +296,9 @@
                                 title: results[i].name
                             });
                             markers[i].addListener('click', function () {
-                                buildIWContent(results[parseInt(this.label.slice(1))]);
+                                let index = parseInt(this.label.slice(1));
+                                buildIWContent(results[index]);
+                                setBounce(index);
                             });
                             markers[i].setMap(map);
                             results[i].isPopular ? addPopularResult(results[i], i) : addResult(results[i], i);
@@ -299,7 +316,15 @@
                     }
                     markers = [];
                 }
-
+        function setBounce(index){
+            for (let i = 0; i < markers.length; i++) {
+                if (i == index) {
+                    markers[i].setAnimation(google.maps.Animation.BOUNCE);
+                }else {
+                    markers[i].setAnimation(null);
+                }
+            }
+        }
                 function addResult(result, i) {
                     var results = document.getElementById('results');
                     var tr = document.createElement('tr');

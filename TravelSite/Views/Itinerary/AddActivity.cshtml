@@ -5,7 +5,7 @@
 
 <p>
     <h2>
-        @Model.Name;
+        @ViewBag.Activity.Name
     </h2>
 </p>
 
@@ -18,26 +18,61 @@
         <th>
             @Html.DisplayNameFor(model => model.Phone)
         </th>
-
         <th></th>
     </tr>
     <tr>
         <td>
-            @Model.Address;
+            @ViewBag.Activity.Address
         </td>
         <td>
-            @Model.Phone;
+            @ViewBag.Activity.Phone
         </td>
         <td>
             @using (Html.BeginForm())
             {
-                @Html.HiddenFor(m => m.Id)
+                @Html.HiddenFor(m => m.Id, new { @Value = ViewBag.Activity.Id})
+                @Html.HiddenFor(m => m.Name, new { @Value = ViewBag.Activity.Name})
+                @Html.HiddenFor(m => m.Phone, new { @Value = ViewBag.Activity.Phone})
+                @Html.HiddenFor(m => m.Address, new { @Value = ViewBag.Activity.Address})
+                @Html.HiddenFor(m => m.Lat, new { @Value = ViewBag.Activity.Lat})
+                @Html.HiddenFor(m => m.Lng, new { @Value = ViewBag.Activity.Lng})
                 <input type="submit" value="Confirm" class="btn btn-default" />
             }
         </td>
     </tr>
+</table>
+<table class="table-striped">
+        <tr>
+            <th>
+                Rating
+            </th>
+            <th>
+                Traveler Name
+            </th>
+            <th>
+                Comment
+            </th>
+        </tr>
+    @foreach(TravelSite.Models.Review review in ViewBag.Reviews)
+    {
+        <tr>
+            <td>
+                @review.Rating
+            </td>
+            <td>
+                @review.Traveler.FirstName
+            </td>
+            <td>
+                @review.Comment
+            </td>
+        </tr>
     }
-
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>@Html.ActionLink("LEAVE REVIEW", "Create", "Review", new { @class = "btn btn-warning",  id=ViewBag.Activity.Id}, null)</td>
+    </tr>
 </table>
 @* final confirmation to add to itinerary,
 

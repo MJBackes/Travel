@@ -182,31 +182,25 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="GoogleAPIHandler.cs" />
-    <Compile Include="Migrations\201912132154264_FourthMigration.cs" />
-    <Compile Include="Migrations\201912132154264_FourthMigration.Designer.cs">
-      <DependentUpon>201912132154264_FourthMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201912161658152_SeventhMigration.cs" />
+    <Compile Include="Migrations\201912161658152_SeventhMigration.Designer.cs">
+      <DependentUpon>201912161658152_SeventhMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccuWeatherForecast.cs" />
     <Compile Include="Models\AccuWeatherLocationResponse.cs" />
+    <Compile Include="Models\ItineraryActivity.cs" />
     <Compile Include="Models\NearByResponse.cs" />
+    <Compile Include="Models\TravelerItinerary.cs" />
     <Compile Include="Models\YelpBusinessResponse.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Activity.cs" />
-    <Compile Include="Models\Geometry.cs" />
-    <Compile Include="Models\Hotel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Interest.cs" />
     <Compile Include="Models\Itinerary.cs" />
-    <Compile Include="Models\Location.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Northeast.cs" />
-    <Compile Include="Models\OpeningHours.cs" />
-    <Compile Include="Models\Photos.cs" />
-    <Compile Include="Models\PlusCode.cs" />
     <Compile Include="Models\Review.cs" />
-    <Compile Include="Models\Southwest.cs" />
     <Compile Include="Models\Traveler.cs" />
-    <Compile Include="Models\ViewPort.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="YelpAPIHandler.cs" />
@@ -286,7 +280,7 @@
     <Content Include="Views\Review\Edit.cshtml" />
     <Content Include="Views\Review\Delete.cshtml" />
     <Content Include="Views\Review\Index.cshtml" />
-    <Content Include="Views\Traveler\TravelerItineraries.cshtml" />
+    <Content Include="Views\Traveler\ViewItineraries.cshtml" />
     <Content Include="Views\Itinerary\Itinerary.cshtml" />
     <Content Include="Views\Itinerary\AddActivity.cshtml" />
   </ItemGroup>
@@ -307,8 +301,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201912132154264_FourthMigration.resx">
-      <DependentUpon>201912132154264_FourthMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201912161658152_SeventhMigration.resx">
+      <DependentUpon>201912161658152_SeventhMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

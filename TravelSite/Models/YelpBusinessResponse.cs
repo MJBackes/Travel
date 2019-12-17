@@ -13,7 +13,7 @@ namespace TravelSite.Models
         public Region region { get; set; }
     }
 
-    public class Region
+    public class YelpRegion
     {
         public Center center { get; set; }
     }

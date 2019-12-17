@@ -4,39 +4,41 @@
 <center>
     <h2>It's a great day to travel!</h2>
 </center>
-<div class="row">
-    <div class="col-md-4">
-        <h2>PLAN NEW TRIP</h2>
-        <p>
-            Start your Journey HERE! Click PLAN NEW TRIP! From there you will be able to search for Hotels at your travel destination. After selecting the Hotel, our system will find local activites that you may enjoy based on your interests! Click it and give it a try!
-        </p>
-        <p>
-            <div>
-                @Html.ActionLink("PLAN NEXT TRIP", "FindHotel", "Itinerary", "FindHotel", new { @class = "btn btn-warning" })
-            </div>
-        </p>
-    </div>
-    <div class="col-md-4">
-        <h2>VIEW MY ITINERARIES</h2>
-        <p>
-            Already have a Trip planned or want to see you past trips? Click VIEW MY ITINERARIES to view the fun time you are going to have or the fun times you've already had! You can also leave reviews of the places you've visited. This allows other users to better plan their trips! Give helpful suggestions on where to go or not go!
-        </p>
-        <p>
-            <div>
-                @Html.ActionLink("VIEW MY ITINERARIES", "Edit", null, new { @class = "btn btn-warning" })
-            </div>
-        </p>
-    </div>
-    <div class="col-md-4">
-        <h2>EDIT MY INTERESTS</h2>
-        <p>
-            Have you recently changed your mind on the activities you want to participate in on your JOURNEY? Well click EDIT MY INTERESTS to quickly change the activities available in your travel location that best fit what you want to do on your JOURNEY!
-        </p>
-        <p>
-            <div>
-                @Html.ActionLink("EDIT MY INTERESTS", "EditInterests", null, new { @class = "btn btn-warning" })
-            </div>
-        </p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h2>PLAN NEW TRIP</h2>
+            <p>
+                Start your Journey HERE! Click PLAN NEW TRIP! From there you will be able to search for Hotels at your travel destination. After selecting the Hotel, our system will find local activites that you may enjoy based on your interests! Click it and give it a try!
+            </p>
+            <p>
+                <div>
+                    @Html.ActionLink("PLAN NEXT TRIP", "FindHotel", "Itinerary", "FindHotel", new { @class = "btn btn-warning" })
+                </div>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2>VIEW MY ITINERARIES</h2>
+            <p>
+                Already have a Trip planned or want to see you past trips? Click VIEW MY ITINERARIES to view the fun time you are going to have or the fun times you've already had! You can also leave reviews of the places you've visited. This allows other users to better plan their trips! Give helpful suggestions on where to go or not go!
+            </p>
+            <p>
+                <div>
+                    @Html.ActionLink("VIEW MY ITINERARIES", "ViewItineraries", "Traveler", "ViewItineraries", new { @class = "btn btn-warning" })
+                </div>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2>EDIT MY INTERESTS</h2>
+            <p>
+                Have you recently changed your mind on the activities you want to participate in on your JOURNEY? Well click EDIT MY INTERESTS to quickly change the activities available in your travel location that best fit what you want to do on your JOURNEY!
+            </p>
+            <p>
+                <div>
+                    @Html.ActionLink("EDIT MY INTERESTS", "EditInterests", null, new { @class = "btn btn-warning" })
+                </div>
+            </p>
+        </div>
     </div>
 </div>
 
