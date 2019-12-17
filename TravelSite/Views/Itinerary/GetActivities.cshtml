@@ -86,6 +86,80 @@
 
 <script type="text/javascript" src="~/Scripts/jquery-3.3.1.js"></script>
 <body>
+<<<<<<< HEAD
+    <div class="row">
+         <div id="popularList"class="col-md-3">
+             <table id="popularTable">
+                 <tbody id="popular"></tbody>
+             </table>
+         </div>
+
+        <div id="map" class="col-md-6"></div>
+
+        <div id="listing" class="col-md-3">
+            <table id="resultsTable">
+                <thead>Powered by Yelp</thead>
+                <tbody id="results"></tbody>
+            </table>
+        </div>
+    </div>
+        <div>
+            <div id="info-content">
+                <table>
+                    <tr id="iw-url-row" class="iw_table_row">
+                        <td id="iw-icon" class="iw_table_icon"></td>
+                        <td id="iw-url"></td>
+                    </tr>
+                    <tr id="iw-address-row" class="iw_table_row">
+                        <td class="iw_attribute_name">Address:</td>
+                        <td id="iw-address"></td>
+                    </tr>
+                    <tr id="iw-phone-row" class="iw_table_row">
+                        <td class="iw_attribute_name">Telephone:</td>
+                        <td id="iw-phone"></td>
+                    </tr>
+                    <tr id="iw-rating-row" class="iw_table_row">
+                        <td class="iw_attribute_name">Rating:</td>
+                        <td id="iw-rating"></td>
+                    </tr>
+                    <tr id="iw-submit" class="iw_table_row">
+                        <td></td>
+                        <td>
+                            @Html.ActionLink("Add Activity", "AddActivity", "Itinerary", "Itinerary", new { @class = "btn btn-warning" })
+                            <input type="submit" value="Create" class="btn btn-default"  />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        //slider display code
+        <div>
+            <center>
+                <div id="rangeSlider">
+                    <input class="bar" type="range" id="rangeInput" min="1" max="36" value="15" onchange="rangevalue.value = value" />
+                    <span class="highlight"></span>
+                    <output id="rangevalue">15</output><span>km</span>
+            @using (Html.BeginForm())
+            {
+                <div class="container">
+                     <div class="row">
+                        <div id="popularList" class="col-md-3">
+                            <table id="popularTable">
+                                <thead>Most Popular Places(Yelp)</thead>
+                                <tbody id="popular"></tbody>
+                            </table>
+                        </div>
+
+                        <div id="map" class="col-md-6"></div>
+
+                        <div id="listing" class="col-md-3">
+                            <table id="resultsTable">
+                                <thead>Powered by Yelp</thead>
+                                <tbody id="results"></tbody>
+                        </div>
+                     </div>
+                </div>
+            }
         @using (Html.BeginForm())
         {
           <div class="container">
@@ -104,9 +178,9 @@
                             <thead>Powered by Yelp</thead>
                             <tbody id="results"></tbody>
                         </table>
+                        </div>
                     </div>
                 </div>
-           </div>
             <div>
                 <div id="info-content">
                     <table>
@@ -161,7 +235,6 @@
             @Html.HiddenFor(model => model.Phone, new { id = "activityPhone"})
             @Html.HiddenFor(model => model.Lat, new { id = "activityLat"})
             @Html.HiddenFor(model => model.Lng, new { id = "activityLng"})
-
         }
     <script>
         var map, bounds, infoWindow;
