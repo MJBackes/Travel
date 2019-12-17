@@ -53,7 +53,9 @@
                 Comment
             </th>
         </tr>
-    @foreach(TravelSite.Models.Review review in ViewBag.Reviews)
+    @if (ViewBag.Reviews.Count > 0)
+    {
+    foreach (TravelSite.Models.Review review in ViewBag.Reviews)
     {
         <tr>
             <td>
@@ -65,6 +67,14 @@
             <td>
                 @review.Comment
             </td>
+        </tr>
+    }
+    }
+    else { 
+        <tr>
+            <td>-</td>
+            <td>-</td>
+            <td>This activity has no reviews yet.</td>
         </tr>
     }
     <tr>

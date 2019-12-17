@@ -11,7 +11,7 @@ namespace TravelSite.Controllers
 {
     public class ReviewController : Controller
     {
-        ApplicationDbContext db;
+        private ApplicationDbContext db;
         public ReviewController()
         {
             db = new ApplicationDbContext();
